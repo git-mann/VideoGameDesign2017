@@ -45,7 +45,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Test.cs" />
+     <Compile Include="Assets\SceneLoader\Planet\Scripts\movement.cs" />
+     <Compile Include="Assets\SceneLoader\Scripts\SceneLoader.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
