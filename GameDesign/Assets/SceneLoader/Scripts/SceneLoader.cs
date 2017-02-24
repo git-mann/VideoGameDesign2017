@@ -5,7 +5,7 @@ public class SceneLoader : MonoBehaviour {
 
 	public int distanceFromSol, seed;
 	public string nameOfSystem;
-	public GameObject planet;
+	public GameObject planet, star;
 
 	// Use this for initialization
 	void Start () {
@@ -19,30 +19,32 @@ public class SceneLoader : MonoBehaviour {
 
 	public void loadScene (int seed)
 	{
-		int size = 0;
-		int yOffSet = 0;
-		int radius = 0;
-		int orbitSpeed = 0;
+		int size, yOffSet, radius, orbitSpeed = 0;
 
 		intializeRandom (seed);
 
+		distanceFromSol = randomIntFromSeed(1, 1000);
+		nameOfSystem = "DMGC-"+seed;
 		int numberOfBodies = randomIntFromSeed (1, 5);
 
-		size = randomIntFromSeed(50, 500);
-		GameObject spawnedSun = GameObject.Instantiate(planet);
+		size = randomIntFromSeed(100, 1000);
+		int temperature = randomIntFromSeed(1, 60);
+		GameObject spawnedSun = GameObject.Instantiate(star);
 		spawnedSun.transform.localScale = new Vector3(size,size,size);
 		spawnedSun.name = "Star";
+		spawnedSun.GetComponent<star>().temperature = temperature;
 	
-
+		GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
+		camera.GetComponent<Skybox>().material.SetInt("_Formuparam", randomIntFromSeed(400,600));
 
 		for (int i = 0; i < numberOfBodies; i++)
 		{
 			size = randomIntFromSeed(5, 100);
 			yOffSet = randomIntFromSeed(-5, 5);
-			radius = randomIntFromSeed(1000, 10000);
+			radius = randomIntFromSeed(1500, 10000);
 			orbitSpeed = randomIntFromSeed(1, 100);
 			GameObject spawnedPlanet = GameObject.Instantiate(planet);
-			spawnedPlanet.GetComponent<movement>().orbitSpeed = orbitSpeed;
+			spawnedPlanet.GetComponent<planet>().orbitSpeed = orbitSpeed;
 			spawnedPlanet.transform.localScale = new Vector3(size,size,size);
 			spawnedPlanet.transform.position = Random.insideUnitCircle * radius;
 			Vector3 position = spawnedPlanet.transform.position;

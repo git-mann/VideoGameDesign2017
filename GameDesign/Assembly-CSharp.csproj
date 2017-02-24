@@ -45,8 +45,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\SceneLoader\Planet\Scripts\movement.cs" />
+     <Compile Include="Assets\SceneLoader\CelestialBodies\CelestialBody.cs" />
+     <Compile Include="Assets\SceneLoader\CelestialBodies\Planet\Scripts\planet.cs" />
+     <Compile Include="Assets\SceneLoader\CelestialBodies\Star\Scripts\star.cs" />
      <Compile Include="Assets\SceneLoader\Scripts\SceneLoader.cs" />
+     <Compile Include="Assets\StarNestSkybox\Scripts\CameraScroll.cs" />
+     <Compile Include="Assets\StarNestSkybox\Scripts\SkyboxSwitcher.cs" />
+     <None Include="Assets\StarNestSkybox\StarNestSkyboxReadme.txt" />
+     <None Include="Assets\StarNestSkybox\StarNestSkybox_HSV.shader" />
+     <None Include="Assets\StarNestSkybox\StarNestSkyboxMask.shader" />
+     <None Include="Assets\StarNestSkybox\hsv.cginc" />
+     <None Include="Assets\StarNestSkybox\StarNestSkybox.shader" />
+     <None Include="Assets\StarNestSkybox\StarNest.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
