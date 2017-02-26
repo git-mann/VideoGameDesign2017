@@ -6,10 +6,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{A66FF95E-0A6E-747C-C0BA-EEE4DD3E6067}</ProjectGuid>
+    <ProjectGuid>{CFF9FFC6-286A-72DE-80CD-2C66309F57AD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -45,17 +45,51 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\SceneLoader\CelestialBodies\CelestialBody.cs" />
-     <Compile Include="Assets\SceneLoader\CelestialBodies\Planet\Scripts\planet.cs" />
-     <Compile Include="Assets\SceneLoader\CelestialBodies\Star\Scripts\star.cs" />
-     <Compile Include="Assets\SceneLoader\Scripts\SceneLoader.cs" />
-     <Compile Include="Assets\SpaceShip\Scripts\Controller.cs" />
-     <Compile Include="Assets\StarNestSkybox\Scripts\CameraScroll.cs" />
-     <Compile Include="Assets\StarNestSkybox\Scripts\SkyboxSwitcher.cs" />
+     <Compile Include="Assets\Standard Assets\Characters\FirstPersonCharacter\Scripts\FirstPersonController.cs" />
+     <Compile Include="Assets\Standard Assets\Characters\FirstPersonCharacter\Scripts\HeadBob.cs" />
+     <Compile Include="Assets\Standard Assets\Characters\FirstPersonCharacter\Scripts\MouseLook.cs" />
+     <Compile Include="Assets\Standard Assets\Characters\FirstPersonCharacter\Scripts\RigidbodyFirstPersonController.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\AxisTouchButton.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\ButtonHandler.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\CrossPlatformInputManager.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\InputAxisScrollbar.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\Joystick.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\MobileControlRig.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\PlatformSpecific\MobileInput.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\PlatformSpecific\StandaloneInput.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\TiltInput.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\TouchPad.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\VirtualInput.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\ActivateTrigger.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\AlphaButtonClickMask.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\AutoMobileShaderSwitch.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\AutoMoveAndRotate.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\CameraRefocus.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\CurveControlledBob.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\DragRigidbody.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\DynamicShadowSettings.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\EventSystemChecker.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\FOVKick.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\FPSCounter.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\FollowTarget.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\ForcedReset.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\LerpControlledBob.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\ObjectResetter.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\ParticleSystemDestroyer.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\PlatformSpecificContent.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\SimpleActivatorMenu.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\SimpleMouseRotator.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\SmoothFollow.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\TimedObjectActivator.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\TimedObjectDestructor.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\WaypointCircuit.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\WaypointProgressTracker.cs" />
      <None Include="Assets\StarNestSkybox\StarNestSkyboxReadme.txt" />
      <None Include="Assets\StarNestSkybox\StarNestSkybox_HSV.shader" />
      <None Include="Assets\StarNestSkybox\StarNestSkyboxMask.shader" />
+     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\StarNestSkybox\hsv.cginc" />
+     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
      <None Include="Assets\StarNestSkybox\StarNestSkybox.shader" />
      <None Include="Assets\StarNestSkybox\StarNest.shader" />
  <Reference Include="UnityEngine.UI">

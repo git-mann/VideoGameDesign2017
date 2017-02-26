@@ -35,7 +35,7 @@ public class SceneLoader : MonoBehaviour {
 		spawnedSun.GetComponent<star>().temperature = temperature;
 	
 		GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
-		camera.GetComponent<Skybox>().material.SetInt("_Formuparam", randomIntFromSeed(400,600));
+		camera.GetComponent<Skybox>().material.SetInt("_Formuparam", randomIntFromSeed(450,550));
 
 		for (int i = 0; i < numberOfBodies; i++)
 		{
