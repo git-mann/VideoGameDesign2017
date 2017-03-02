@@ -5,7 +5,7 @@ public class SceneLoader : MonoBehaviour {
 
 	public int distanceFromSol, seed;
 	public string nameOfSystem;
-	public GameObject planet, star;
+	public GameObject planet, star, hydrogen;
 
 	// Use this for initialization
 	void Start () {

@@ -20,8 +20,12 @@ public class CameraScroll : MonoBehaviour {
 		speed = Mathf.Clamp(speed, 1f, 1000f);
 
 		if (Input.GetKeyDown("r")) { acceleration /= 2f; }
-		if (Input.GetKeyDown("t")) { acceleration *= 2f; }
-		acceleration = Mathf.Clamp(acceleration, 1f/8f, 8f);
+		if (Input.GetKeyDown("t")) {
+            acceleration *= 2f;
+            
+        }
+        Debug.Log(acceleration);
+        acceleration = Mathf.Clamp(acceleration, 1f/8f, 8f);
 
 		Vector3 input = new Vector3();
 
