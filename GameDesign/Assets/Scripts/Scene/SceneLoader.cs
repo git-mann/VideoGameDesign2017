@@ -33,7 +33,8 @@ public class SceneLoader : MonoBehaviour {
 		spawnedSun.transform.localScale = new Vector3(size,size,size);
 		spawnedSun.name = "Star";
 		spawnedSun.GetComponent<star>().temperature = temperature;
-	
+        spawnedSun.AddComponent<SphereCollider>();
+        spawnedSun.GetComponent<SphereCollider>().isTrigger = true;
 		GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
 		camera.GetComponent<Skybox>().material.SetInt("_Formuparam", randomIntFromSeed(450,550));
 
@@ -47,6 +48,11 @@ public class SceneLoader : MonoBehaviour {
 			spawnedPlanet.GetComponent<planet>().orbitSpeed = orbitSpeed;
 			spawnedPlanet.transform.localScale = new Vector3(size,size,size);
 			spawnedPlanet.transform.position = Random.insideUnitCircle * radius;
+            //adding a collider to the planet
+            spawnedPlanet.AddComponent<SphereCollider>();
+            //setting the trigger to true so we can use it later
+            spawnedPlanet.GetComponent<SphereCollider>().isTrigger = true;
+            spawnedPlanet.tag = "Planet";
 			Vector3 position = spawnedPlanet.transform.position;
 			position.z = position.y;
 			position.y = 0 + yOffSet;

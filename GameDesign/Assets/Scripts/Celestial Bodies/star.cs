@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class star : CelestialBody {
-
+    MeshRenderer rend;
 	public override void Start ()
 	{
 		if (temperature < 30.5) {
@@ -28,6 +28,17 @@ public class star : CelestialBody {
 		light.type= LightType.Point;
 		light.range = starClass * 1000;
 		light.intensity = starClass;
-		transform.gameObject.GetComponent<MeshRenderer>().material = mats[starClass-1];
-	}
+		rend = transform.gameObject.GetComponent<MeshRenderer>();
+        rend.material = mats[starClass - 1];
+
+
+    }
+    public new  bool reduceHydrogen()
+    {
+        if(molH < 20)
+        {
+            rend.material.color = Color.HSVToRGB(24, 100, 100);
+        }
+        return base.reduceHydrogen();
+    }
 }

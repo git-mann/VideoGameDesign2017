@@ -8,7 +8,6 @@ public class CelestialBody : MonoBehaviour {
 	public double percentH, molH;
 	public Material[] mats;
 
-
 	public virtual void Start ()
 	{
 
@@ -18,4 +17,16 @@ public class CelestialBody : MonoBehaviour {
 	{
 
 	}
+    public bool reduceHydrogen()
+    {
+        if (molH >= 0)
+        {
+            molH -= .1;
+            Debug.Log(molH);
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
 }
