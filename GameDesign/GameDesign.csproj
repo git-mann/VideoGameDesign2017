@@ -75,9 +75,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="GameDesign.Plugins.csproj">
+      <Project>{461F9148-A74E-4EB4-4271-9EFB87727FA3}</Project>
+      <Name>GameDesign.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\Scripts\Celestial Bodies\CelestialBody.cs" />
     <Compile Include="Assets\Scripts\Celestial Bodies\planet.cs" />
     <Compile Include="Assets\Scripts\Celestial Bodies\star.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\UI\Switcher.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\orbit.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneLoader.cs" />
     <Compile Include="Assets\Scripts\Ship\Controller.cs" />
     <Compile Include="Assets\Scripts\Ship\onCollision.cs" />
@@ -85,6 +93,12 @@
     <Compile Include="Assets\StarNestSkybox\Scripts\SkyboxSwitcher.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+    <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
+    <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
+    <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
+    <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
+    <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
     <None Include="Assets\StarNestSkybox\StarNest.shader" />
     <None Include="Assets\StarNestSkybox\StarNestSkybox.shader" />
     <None Include="Assets\StarNestSkybox\StarNestSkyboxMask.shader" />

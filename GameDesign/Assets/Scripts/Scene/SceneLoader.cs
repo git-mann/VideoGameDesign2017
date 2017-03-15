@@ -9,7 +9,10 @@ public class SceneLoader : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		loadScene(seed);
+        if (nameOfSystem.Equals("Sol"))
+            loadBase();
+        else
+            loadScene(seed);
 	}
 	
 	// Update is called once per frame
@@ -35,7 +38,19 @@ public class SceneLoader : MonoBehaviour {
 		spawnedSun.GetComponent<star>().temperature = temperature;
         spawnedSun.AddComponent<SphereCollider>();
         spawnedSun.GetComponent<SphereCollider>().isTrigger = true;
-		GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
+        //resizing collider
+        spawnedSun.GetComponent<SphereCollider>().radius = 1.25f;
+        spawnedSun.AddComponent<ParticleSystem>();
+        ParticleSystem ps;
+        ps = spawnedSun.GetComponent<ParticleSystem>();
+        ps.Pause();
+        ParticleSystem.MainModule psMain = ps.main;
+        ParticleSystem.ShapeModule psShape = ps.shape;
+        psMain.startSize = .01f;
+        psMain.startSpeed = .5f;
+        psShape.radius = .1f;
+        
+        GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
 		camera.GetComponent<Skybox>().material.SetInt("_Formuparam", randomIntFromSeed(450,550));
 
 		for (int i = 0; i < numberOfBodies; i++)
@@ -52,6 +67,17 @@ public class SceneLoader : MonoBehaviour {
             spawnedPlanet.AddComponent<SphereCollider>();
             //setting the trigger to true so we can use it later
             spawnedPlanet.GetComponent<SphereCollider>().isTrigger = true;
+            //scale the collider to be bigger
+            spawnedPlanet.GetComponent<SphereCollider>().radius = 1.1f;
+            //add partical system
+            spawnedPlanet.AddComponent<ParticleSystem>();
+            ps = spawnedPlanet.GetComponent<ParticleSystem>();
+            ps.Pause();
+             psMain = ps.main;
+             psShape = ps.shape;
+            psMain.startSpeed = .5f;
+            psShape.radius = .1f;
+            psMain.startSize = .05f;
             spawnedPlanet.tag = "Planet";
 			Vector3 position = spawnedPlanet.transform.position;
 			position.z = position.y;
@@ -59,8 +85,33 @@ public class SceneLoader : MonoBehaviour {
 			spawnedPlanet.transform.position = position;
 		}
 	}
+    void loadBase()
+    {
+        int size;
+        size = 250;
+        int temperature = 25;
+        GameObject spawnedSun = GameObject.Instantiate(star);
+        spawnedSun.transform.localScale = new Vector3(size, size, size);
+        spawnedSun.name = "Star";
+        spawnedSun.GetComponent<star>().temperature = temperature;
+        spawnedSun.AddComponent<SphereCollider>();
+        spawnedSun.GetComponent<SphereCollider>().isTrigger = true;
+        //resizing collider
+        spawnedSun.GetComponent<SphereCollider>().radius = 1.25f;
+        spawnedSun.AddComponent<ParticleSystem>();
+        ParticleSystem ps;
+        ps = spawnedSun.GetComponent<ParticleSystem>();
+        ps.Pause();
+        ParticleSystem.MainModule psMain = ps.main;
+        ParticleSystem.ShapeModule psShape = ps.shape;
+        psMain.startSize = .01f;
+        psMain.startSpeed = .5f;
+        psShape.radius = .1f;
 
-	private void intializeRandom(int seed)
+        GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
+        camera.GetComponent<Skybox>().material.SetInt("_Formuparam", randomIntFromSeed(450, 550));
+    }
+    private void intializeRandom(int seed)
 	{
 		Random.InitState(seed);
 	}
@@ -70,4 +121,8 @@ public class SceneLoader : MonoBehaviour {
 		int number = Random.Range(min, max);
 		return number;
 	}
+    public void changeSystem(int sysId, int index)
+    {
+
+    }
 }

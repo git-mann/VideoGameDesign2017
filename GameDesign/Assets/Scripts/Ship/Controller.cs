@@ -2,9 +2,9 @@
 using System.Collections;
 
 public class Controller : MonoBehaviour {
-
+    public static Controller control;
 	public double maxSpeed, hydrogen, fuelPerTime;
-    private double maxH = 100;
+    public const double maxH = 100;
     private float boostFuel,regFuel, sWidth, guiRatio;
 	public float  forceAmount, currentSpeed, thrust, turn, shipRotationSpeed, shipThrust, boostThrust = 1.5f;
 	public bool allowMovement;
@@ -19,16 +19,25 @@ public class Controller : MonoBehaviour {
     void Start () {
 		hydrogen = 50;
 		rb = transform.GetComponent<Rigidbody>();
-        //calculating the fuel usage. it should come out to .3/sec
-        regFuel = shipThrust / 300;
+        //calculating the fuel usage. it should come out to .09/sec
+        regFuel = shipThrust / 100000;
         //the boost fuel usage is equal to the regular usage * the boost thrust squared
-        boostFuel = regFuel * Mathf.Pow(boostThrust, 2);
+        boostFuel = regFuel * boostThrust;
 	}
 
 
     //At this script initialization  
     void Awake()
     {
+
+        if(control == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            control = this;
+        }else if(control != this){
+            Destroy(gameObject);
+        }
+        
         //get the screen's width  
         sWidth = Screen.width;
         //calculate the scale ratio  
@@ -39,36 +48,58 @@ public class Controller : MonoBehaviour {
     void OnGUI()
     {
         //scale and position the GUI element to draw it at the screen's top left corner  
-        if (full)
+        if (hydrogen>80)
         {
             GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 45 * GUIsF.y, 0), Quaternion.identity, GUIsF);
             //these labels should all be same
             GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[4]);
+        }else
+        {
+            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 45 * GUIsF.y, 0), Quaternion.identity, GUIsF);
+            //these labels should all be same
+            GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[5]);
         }
-        if (high)
+        if (hydrogen>60)
         {
             //beneath the first bar
             GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 75 * GUIsF.y, 0), Quaternion.identity, GUIsF);
             //draw GUI on the bottom right  
             GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[3]);
+        }else
+        {
+            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 75 * GUIsF.y, 0), Quaternion.identity, GUIsF);
+            //draw GUI on the bottom right  
+            GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[5]);
         }
-        if (mid)
+        if (hydrogen>40)
         {
             //beneath second bar
             GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 110 * GUIsF.y, 0), Quaternion.identity, GUIsF);
             GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[2]);
+        }else
+        {
+            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 110 * GUIsF.y, 0), Quaternion.identity, GUIsF);
+            GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[5]);
         }
-        if (low)
+        if (hydrogen>20)
         {
             //beneath the third
             GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 145 * GUIsF.y, 0), Quaternion.identity, GUIsF);
             GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[1]);
+        }else
+        {
+            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 145 * GUIsF.y, 0), Quaternion.identity, GUIsF);
+            GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[5]);
         }
-        if (empty)
+        if (hydrogen > 0)
         {
             //beneath the fourth
             GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 180 * GUIsF.y, 0), Quaternion.identity, GUIsF);
             GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[0]);
+        }else
+        {
+            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 180 * GUIsF.y, 0), Quaternion.identity, GUIsF);
+            GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[5]);
         }
 
     }
@@ -77,50 +108,40 @@ public class Controller : MonoBehaviour {
     void Update ()
 	{
 		rb.mass = 1 + (float)(hydrogen/100);
-		if (hydrogen > fuelPerTime) {
+		if (hydrogen > 0) {
 			allowMovement = true;
 		} else {
 			allowMovement = false;
 		}
 
-        checkFuel();
+        
 		currentSpeed = rb.velocity.magnitude;
 		if (allowMovement) {
 			if (Input.GetAxis ("Vertical") != 0) {
 				thrust = Input.GetAxis ("Vertical") * shipThrust;
+                // sutracting used fuel from hydrogen
+                
 				if (Input.GetKey(KeyCode.LeftShift)) {
 					thrust *= boostThrust;
-                    
+                    hydrogen -= boostFuel;
 				}
-			}
+                hydrogen -= regFuel;
+            }
 			if (Input.GetAxis ("Horizontal") != 0) {
 				turn = Input.GetAxis ("Horizontal") * shipRotationSpeed;
+                hydrogen -= (regFuel / 10);
 			}
 		
 
 			rb.AddForce(thrust * transform.forward * Time.deltaTime);
 			rb.AddRelativeTorque(transform.up * turn * Time.deltaTime);
 		}
-	}
-    private void checkFuel()
-    {
-        if(hydrogen >= 80)
+        if(transform.position.x > 7000)
         {
-            full = high = mid = low = empty = true;
-        }else if(hydrogen >= 60)
-        {
-            high = mid = low = empty = true;
-        }else if(hydrogen >= 40)
-        {
-            mid = low = empty = true;
-        }else if(hydrogen >= 20)
-        {
-            low = empty = true;
-        }else if(hydrogen > 0)
-        {
-            empty = true;
+            
         }
-    }
+	}
+    
 	public bool vacuum ()
 	{
         if(hydrogen < maxH)
@@ -132,5 +153,9 @@ public class Controller : MonoBehaviour {
             return false;
         }
 	}
+    public double getHydrogen()
+    {
+        return hydrogen;
+    }
     
 }
