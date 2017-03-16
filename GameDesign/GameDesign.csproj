@@ -85,10 +85,12 @@
     <Compile Include="Assets\Scripts\Celestial Bodies\planet.cs" />
     <Compile Include="Assets\Scripts\Celestial Bodies\star.cs" />
     <Compile Include="Assets\Scripts\MainMenu\UI\Switcher.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\loadData.cs" />
     <Compile Include="Assets\Scripts\MainMenu\orbit.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneLoader.cs" />
     <Compile Include="Assets\Scripts\Ship\Controller.cs" />
     <Compile Include="Assets\Scripts\Ship\onCollision.cs" />
+    <Compile Include="Assets\Scripts\station\station.cs" />
     <Compile Include="Assets\StarNestSkybox\Scripts\CameraScroll.cs" />
     <Compile Include="Assets\StarNestSkybox\Scripts\SkyboxSwitcher.cs" />
   </ItemGroup>

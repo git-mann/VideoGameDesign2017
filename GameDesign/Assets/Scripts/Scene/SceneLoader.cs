@@ -5,14 +5,19 @@ public class SceneLoader : MonoBehaviour {
 
 	public int distanceFromSol, seed;
 	public string nameOfSystem;
-	public GameObject planet, star, hydrogen;
-
-	// Use this for initialization
-	void Start () {
-        if (nameOfSystem.Equals("Sol"))
+	public GameObject planet, star, hydrogen, station;
+    
+    // Use this for initialization
+    void Start () {
+        
+        if (loadData.data.sceneName.Equals("new")){
+            loadData.data.secX = 0;
+            loadData.data.secZ = 0;
             loadBase();
-        else
+        }else
+        {
             loadScene(seed);
+        }
 	}
 	
 	// Update is called once per frame
@@ -32,26 +37,12 @@ public class SceneLoader : MonoBehaviour {
 
 		size = randomIntFromSeed(100, 1000);
 		int temperature = randomIntFromSeed(1, 60);
-		GameObject spawnedSun = GameObject.Instantiate(star);
-		spawnedSun.transform.localScale = new Vector3(size,size,size);
-		spawnedSun.name = "Star";
-		spawnedSun.GetComponent<star>().temperature = temperature;
-        spawnedSun.AddComponent<SphereCollider>();
-        spawnedSun.GetComponent<SphereCollider>().isTrigger = true;
-        //resizing collider
-        spawnedSun.GetComponent<SphereCollider>().radius = 1.25f;
-        spawnedSun.AddComponent<ParticleSystem>();
+
+        spawnSun(size, temperature);
+
         ParticleSystem ps;
-        ps = spawnedSun.GetComponent<ParticleSystem>();
-        ps.Pause();
-        ParticleSystem.MainModule psMain = ps.main;
-        ParticleSystem.ShapeModule psShape = ps.shape;
-        psMain.startSize = .01f;
-        psMain.startSpeed = .5f;
-        psShape.radius = .1f;
-        
-        GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
-		camera.GetComponent<Skybox>().material.SetInt("_Formuparam", randomIntFromSeed(450,550));
+        ParticleSystem.MainModule psMain;
+        ParticleSystem.ShapeModule psShape;
 
 		for (int i = 0; i < numberOfBodies; i++)
 		{
@@ -87,9 +78,15 @@ public class SceneLoader : MonoBehaviour {
 	}
     void loadBase()
     {
-        int size;
-        size = 250;
-        int temperature = 25;
+        
+        spawnSun();
+
+        GameObject spawnedBase = GameObject.Instantiate(station);
+        
+    }
+
+    private void spawnSun(int size = 250, int temperature = 25)
+    {
         GameObject spawnedSun = GameObject.Instantiate(star);
         spawnedSun.transform.localScale = new Vector3(size, size, size);
         spawnedSun.name = "Star";
@@ -107,7 +104,6 @@ public class SceneLoader : MonoBehaviour {
         psMain.startSize = .01f;
         psMain.startSpeed = .5f;
         psShape.radius = .1f;
-
         GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
         camera.GetComponent<Skybox>().material.SetInt("_Formuparam", randomIntFromSeed(450, 550));
     }

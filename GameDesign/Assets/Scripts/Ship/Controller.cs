@@ -30,13 +30,7 @@ public class Controller : MonoBehaviour {
     void Awake()
     {
 
-        if(control == null)
-        {
-            DontDestroyOnLoad(gameObject);
-            control = this;
-        }else if(control != this){
-            Destroy(gameObject);
-        }
+        
         
         //get the screen's width  
         sWidth = Screen.width;
@@ -136,13 +130,53 @@ public class Controller : MonoBehaviour {
 			rb.AddForce(thrust * transform.forward * Time.deltaTime);
 			rb.AddRelativeTorque(transform.up * turn * Time.deltaTime);
 		}
-        if(transform.position.x > 7000)
+        #region sector switch
+        if( transform.position.z <7000 && transform.position.z >-7000 &&transform.position.x >= 7000 )
         {
-            
+            loadData.data.secX++;
+            transform.position = new Vector3((0 - transform.position.x) + 50, transform.position.y, transform.position.z);
+        }else if (transform.position.z < 7000 && transform.position.z > -7000 && transform.position.x <= -7000)
+        {
+            loadData.data.secX--;
+            transform.position = new Vector3((0 - transform.position.x) - 50, transform.position.y, transform.position.z);
         }
-	}
-    
-	public bool vacuum ()
+        else if (transform.position.x < 7000 && transform.position.x > -7000 && transform.position.z >= 7000)
+        {
+            loadData.data.secZ++;
+            transform.position = new Vector3(transform.position.x, transform.position.y, (0-transform.position.z) + 50);
+        }else if (transform.position.x < 7000 && transform.position.x > -7000 && transform.position.z <= 7000)
+        {
+            loadData.data.secZ--;
+            transform.position = new Vector3(transform.position.x, transform.position.y, (0-transform.position.z)-50);
+        }
+        else if (transform.position.z <=-7000 && transform.position.x <= -7000)
+        {
+            loadData.data.secX--;
+            loadData.data.secZ--;
+            transform.position = new Vector3((0 - transform.position.x) - 50, transform.position.y, (0-transform.position.z) -50);
+        }
+        else if (transform.position.z >= 7000 && transform.position.x >= 7000)
+        {
+            loadData.data.secX++;
+            loadData.data.secZ++;
+            transform.position = new Vector3((0 - transform.position.x) + 50, transform.position.y, (0 - transform.position.z) + 50);
+        }
+        else if (transform.position.z >= 7000 && transform.position.x <= -7000)
+        {
+            loadData.data.secX--;
+            loadData.data.secZ++;
+            transform.position = new Vector3((0 - transform.position.x) - 50, transform.position.y, (0 - transform.position.z) + 50);
+        }
+        else if (transform.position.z <= -7000 && transform.position.x >= 7000)
+        {
+            loadData.data.secX++;
+            loadData.data.secZ--;
+            transform.position = new Vector3((0 - transform.position.x) + 50, transform.position.y, (0 - transform.position.z) - 50);
+        }
+        #endregion
+    }
+
+    public bool vacuum ()
 	{
         if(hydrogen < maxH)
         {
