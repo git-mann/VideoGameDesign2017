@@ -144,7 +144,7 @@ public class Controller : MonoBehaviour {
         {
             loadData.data.secZ++;
             transform.position = new Vector3(transform.position.x, transform.position.y, (0-transform.position.z) + 50);
-        }else if (transform.position.x < 7000 && transform.position.x > -7000 && transform.position.z <= 7000)
+        }else if (transform.position.x < 7000 && transform.position.x > -7000 && transform.position.z <= -7000)
         {
             loadData.data.secZ--;
             transform.position = new Vector3(transform.position.x, transform.position.y, (0-transform.position.z)-50);
