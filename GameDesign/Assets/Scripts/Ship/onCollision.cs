@@ -31,16 +31,17 @@ public class onCollision : MonoBehaviour {
     }
     private void Update()
     {
+        thing = loadData.data.sun;
         if(con.getHydrogen()< Controller.maxH)
         {
             spaceLeft = true;
         }
-        if (hLeft && spaceLeft && draining && Input.GetKey(KeyCode.Space) )
+        if (hLeft && spaceLeft && draining && Input.GetKey(KeyCode.Space))
         {
             hLeft = plan.reduceHydrogen();
             spaceLeft = con.vacuum();
             thing.GetComponent<ParticleSystem>().Play();
-        }else
+        } else if (Input.GetAxis("Vacuum")== 0)
         {
             thing.GetComponent<ParticleSystem>().Pause();
             thing.GetComponent<ParticleSystem>().Clear();

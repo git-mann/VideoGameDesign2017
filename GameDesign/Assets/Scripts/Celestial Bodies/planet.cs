@@ -4,7 +4,7 @@ using System.Collections;
 public class planet : CelestialBody {
 	public override void Start ()
 	{
-		star = GameObject.Find ("Star");
+        star = loadData.data.sun;
 		if (transform.localScale.x < 10) {
 			percentH = 0.05;
 		} else {

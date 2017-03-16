@@ -11,11 +11,13 @@ public class SceneLoader : MonoBehaviour {
     void Start () {
         
         if (loadData.data.sceneName.Equals("new")){
+            loadData.data.sceneName = System.DateTime.Now.ToString("yyyyMMddHHmmss");
             loadData.data.secX = 0;
             loadData.data.secZ = 0;
             loadBase();
         }else
         {
+            loadData.data.seed = seed;
             loadScene(seed);
         }
 	}
@@ -39,7 +41,7 @@ public class SceneLoader : MonoBehaviour {
 		int temperature = randomIntFromSeed(1, 60);
 
         spawnSun(size, temperature);
-
+        
         ParticleSystem ps;
         ParticleSystem.MainModule psMain;
         ParticleSystem.ShapeModule psShape;
@@ -76,7 +78,7 @@ public class SceneLoader : MonoBehaviour {
 			spawnedPlanet.transform.position = position;
 		}
 	}
-    void loadBase()
+    public void loadBase()
     {
         
         spawnSun();
@@ -90,6 +92,7 @@ public class SceneLoader : MonoBehaviour {
         GameObject spawnedSun = GameObject.Instantiate(star);
         spawnedSun.transform.localScale = new Vector3(size, size, size);
         spawnedSun.name = "Star";
+        spawnedSun.tag = "Sun";
         spawnedSun.GetComponent<star>().temperature = temperature;
         spawnedSun.AddComponent<SphereCollider>();
         spawnedSun.GetComponent<SphereCollider>().isTrigger = true;
@@ -106,6 +109,7 @@ public class SceneLoader : MonoBehaviour {
         psShape.radius = .1f;
         GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
         camera.GetComponent<Skybox>().material.SetInt("_Formuparam", randomIntFromSeed(450, 550));
+        loadData.data.sun = spawnedSun;
     }
     private void intializeRandom(int seed)
 	{
@@ -117,8 +121,10 @@ public class SceneLoader : MonoBehaviour {
 		int number = Random.Range(min, max);
 		return number;
 	}
-    public void changeSystem(int sysId, int index)
+    public void generateWithoutSeed()
     {
-
+        int seed = (int)Random.Range(0f, 10000000000f);
+        loadScene(seed);
     }
+
 }

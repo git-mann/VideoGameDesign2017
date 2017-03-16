@@ -133,44 +133,74 @@ public class Controller : MonoBehaviour {
         #region sector switch
         if( transform.position.z <7000 && transform.position.z >-7000 &&transform.position.x >= 7000 )
         {
+            loadData.data.saveSector();
             loadData.data.secX++;
+            loadData.data.load();
             transform.position = new Vector3((0 - transform.position.x) + 50, transform.position.y, transform.position.z);
         }else if (transform.position.z < 7000 && transform.position.z > -7000 && transform.position.x <= -7000)
         {
+            loadData.data.saveSector();
+
             loadData.data.secX--;
+            loadData.data.load();
+
             transform.position = new Vector3((0 - transform.position.x) - 50, transform.position.y, transform.position.z);
         }
         else if (transform.position.x < 7000 && transform.position.x > -7000 && transform.position.z >= 7000)
         {
+            loadData.data.saveSector();
+
             loadData.data.secZ++;
+            loadData.data.load();
+
             transform.position = new Vector3(transform.position.x, transform.position.y, (0-transform.position.z) + 50);
         }else if (transform.position.x < 7000 && transform.position.x > -7000 && transform.position.z <= -7000)
         {
+            loadData.data.saveSector();
+
             loadData.data.secZ--;
+            loadData.data.load();
+
             transform.position = new Vector3(transform.position.x, transform.position.y, (0-transform.position.z)-50);
         }
         else if (transform.position.z <=-7000 && transform.position.x <= -7000)
         {
+            loadData.data.saveSector();
+
             loadData.data.secX--;
             loadData.data.secZ--;
+            loadData.data.load();
+
             transform.position = new Vector3((0 - transform.position.x) - 50, transform.position.y, (0-transform.position.z) -50);
         }
         else if (transform.position.z >= 7000 && transform.position.x >= 7000)
         {
+            loadData.data.saveSector();
+
             loadData.data.secX++;
             loadData.data.secZ++;
+            loadData.data.load();
+
             transform.position = new Vector3((0 - transform.position.x) + 50, transform.position.y, (0 - transform.position.z) + 50);
         }
         else if (transform.position.z >= 7000 && transform.position.x <= -7000)
         {
+            loadData.data.saveSector();
+
             loadData.data.secX--;
             loadData.data.secZ++;
+            loadData.data.load();
+
             transform.position = new Vector3((0 - transform.position.x) - 50, transform.position.y, (0 - transform.position.z) + 50);
         }
         else if (transform.position.z <= -7000 && transform.position.x >= 7000)
         {
+            loadData.data.saveSector();
+
             loadData.data.secX++;
             loadData.data.secZ--;
+            loadData.data.load();
+
             transform.position = new Vector3((0 - transform.position.x) + 50, transform.position.y, (0 - transform.position.z) - 50);
         }
         #endregion
