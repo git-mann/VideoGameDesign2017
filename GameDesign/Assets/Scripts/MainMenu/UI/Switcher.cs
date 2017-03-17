@@ -11,6 +11,7 @@ public class Switcher : MonoBehaviour {
     int numSel = -1;
     public void resumeScene()
     {
+        loadData.data.sceneName = "resume";
         SceneManager.LoadScene("RandomBasedOnSeed");
     }
     public void newScene()
@@ -30,6 +31,8 @@ public class Switcher : MonoBehaviour {
         
         List<string> temp = new List<string>(hello);
         temp.Remove("Unity");
+        if(temp.Contains("resume.dat"))
+        temp.Remove("resume.dat");
         hello = temp.ToArray();
         popSaves = true;
         con.SetActive(true);

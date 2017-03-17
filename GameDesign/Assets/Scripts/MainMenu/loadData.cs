@@ -26,10 +26,11 @@ public class loadData : MonoBehaviour {
             Destroy(gameObject);
         }
     }
-    private void Update()
+    private void OnApplicationQuit()
     {
-        
+        this.Save();
     }
+    #region condense
     //this and expandMol are basically the inverse of each other
     //Condense mol will coppy all of the hydrogen to this object for saving while expand mol coppies them all to planets after loading
     private void condenseMol()
@@ -47,6 +48,27 @@ public class loadData : MonoBehaviour {
             }
         }
     }
+    void condenseWODestroy()
+    {
+        GameObject sun = GameObject.FindGameObjectWithTag("Sun");
+        molH.Add(sun.GetComponent<star>().molH);
+        GameObject[] plans = GameObject.FindGameObjectsWithTag("Planet");
+        if (plans.Length != 0)
+        {
+            for (int i = 0; i < plans.Length; i++)
+            {
+                molH.Add(plans[i].GetComponent<planet>().molH);
+            }
+        }
+        else
+        {
+            GameObject mainBase = GameObject.FindGameObjectWithTag("Base");
+            Base home = new Base(mainBase.GetComponent<station>());
+            saveBase(home);
+
+        }
+
+    }
     private void condenseBase()
     {
         GameObject mainBase = GameObject.FindGameObjectWithTag("Base");
@@ -59,6 +81,7 @@ public class loadData : MonoBehaviour {
 
         }
     }
+    #endregion
     private void expandMol()
     {
         GameObject sun = GameObject.FindGameObjectWithTag("Sun");
@@ -75,7 +98,8 @@ public class loadData : MonoBehaviour {
         }
     }
 
-    public void saveSector()
+    #region save
+   public void saveSector()
     {
         condenseMol();
 
@@ -97,9 +121,66 @@ public class loadData : MonoBehaviour {
         bf.Serialize(output, save);
         output.Close();
     }
+   void saveSectorWithoutDestory()
+    {
+        condenseWODestroy();
+        SceneLoader scene = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
+
+        this.seed = scene.seed;
+        string fileName = "X" + secX.ToString() + "Z" + secZ.ToString() + ".dat";
+
+        BinaryFormatter bf = new BinaryFormatter();
+        if (!Directory.Exists(Application.persistentDataPath + sceneName + "/Sectors/"))
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + "/" + sceneName + "/Sectors/");
+        }
+        Debug.Log(Application.persistentDataPath + "/" + sceneName + "/Sectors/");
+        FileStream output = File.Open(Application.persistentDataPath + "/" + sceneName + "/Sectors/" + fileName, FileMode.OpenOrCreate);
+        SaveSector save = new SaveSector(seed, molH);
+        bf.Serialize(output, save);
+        output.Close();
+    }
+    void saveResume()
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        Resume resume = new Resume();
+
+        resume.SceneName = this.sceneName;
+
+        FileStream output = File.Open(Application.persistentDataPath + "/resume.dat", FileMode.OpenOrCreate);
+        bf.Serialize(output, resume);
+        output.Close();
+        Debug.Log("output resume");
+    }    
+    void saveScene()
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        Scene scene = new Scene();
+        scene.XSec = secX;
+        scene.zSec = secZ;
+        if (!Directory.Exists(Application.persistentDataPath + sceneName + "/"))
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + "/" + sceneName + "/");
+        }
+        FileStream output = File.Open(Application.persistentDataPath + "/" + sceneName + "/scene.dat", FileMode.OpenOrCreate);
+        bf.Serialize(output, scene);
+        output.Close();
+    }
+    private void saveShip()
+    {
+        Controller control = GameObject.FindGameObjectWithTag("Player").GetComponent<Controller>();
+        BinaryFormatter bf = new BinaryFormatter();
+        Ship ship = new Ship(control);
+        if (!Directory.Exists(Application.persistentDataPath + sceneName + "/"))
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + "/" + sceneName + "/");
+        }
+        FileStream output = File.Open(Application.persistentDataPath + "/" + sceneName + "/ship.dat", FileMode.OpenOrCreate);
+        bf.Serialize(output, ship);
+        output.Close();
+    }
     private void saveBase(Base obje)
     {
-        SceneLoader scene = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
         BinaryFormatter bf = new BinaryFormatter();
         if (!Directory.Exists(Application.persistentDataPath + sceneName + "/Sectors/"))
         {
@@ -108,6 +189,52 @@ public class loadData : MonoBehaviour {
         FileStream output = File.Open(Application.persistentDataPath + "/" + sceneName + "/Sectors/base.dat", FileMode.OpenOrCreate);
         bf.Serialize(output, obje);
         output.Close();
+    }
+
+    public void Save()
+    {
+        this.saveResume();
+        this.saveSectorWithoutDestory();
+        this.saveShip();
+        this.saveScene();
+    }
+  
+    #endregion
+
+
+
+    #region load
+    bool findResume()
+    {
+        if (File.Exists(Application.persistentDataPath + "/resume.dat")) { 
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream input = File.Open(Application.persistentDataPath + "/resume.dat", FileMode.OpenOrCreate);
+        Resume sector = (Resume)bf.Deserialize(input);
+        this.sceneName = sector.SceneName;
+        return true;
+    }else{
+    return false;
+    }
+    }
+    void loadScene()
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream input = File.Open(Application.persistentDataPath + "/" + sceneName + "/scene.dat", FileMode.OpenOrCreate);
+        Scene sector = (Scene)bf.Deserialize(input);
+        this.secX = sector.XSec;
+        this.secZ = sector.zSec;
+    }
+    private void loadShip()
+    {
+        Controller ship = GameObject.FindGameObjectWithTag("Player").GetComponent<Controller>();
+
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream input = File.Open(Application.persistentDataPath + "/" + sceneName + "/ship.dat", FileMode.OpenOrCreate);
+        Ship sector = (Ship)bf.Deserialize(input);
+        ship.hydrogen = sector.molH ;
+        ship.upgrades = sector.upgrades;
+        ship.transform.position =new Vector3(sector.posX, ship.transform.position.y,sector.posZ);
+
     }
     private void loadBase(SceneLoader scene)
     {
@@ -153,7 +280,30 @@ public class loadData : MonoBehaviour {
         }
     }
 
+    public bool loadResume()
+    {
+        if (!File.Exists(Application.persistentDataPath + "/resume.dat"))
+            return false;
+            if (findResume()) { 
 
+            loadSceneName();
+        return true;
+    }
+        else
+        {
+            return false;
+        }
+       }
+
+    public void loadSceneName()
+    {
+        loadScene();
+        load();
+        loadShip();
+    }
+
+
+    #endregion
 }
 [Serializable]
 class SaveSector
@@ -179,4 +329,28 @@ class Base
         this.molH = stat.molH;
     }
 }
-
+[Serializable]
+class Scene
+{
+    public int XSec;
+    public int zSec;
+}
+[Serializable]
+class Ship
+{
+    public double molH;
+    public List<int> upgrades;
+    public float posX, posZ;
+    public Ship(Controller control)
+    {
+        this.molH = control.hydrogen;
+        this.upgrades = control.upgrades;
+        this.posX = control.transform.position.x;
+        this.posZ = control.transform.position.z;
+    }
+}
+[Serializable]
+class Resume
+{
+    public string SceneName;
+}

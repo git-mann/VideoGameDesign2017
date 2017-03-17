@@ -20,7 +20,8 @@ public class pause : MonoBehaviour {
     }
     public void saveExit()
     {
-
+        loadData.data.Save();
+        Application.Quit();
     }
     public void Resume()
     {
@@ -31,5 +32,9 @@ public class pause : MonoBehaviour {
     public void settings()
     {
 
+    }
+    public void save()
+    {
+        loadData.data.Save();
     }
 }

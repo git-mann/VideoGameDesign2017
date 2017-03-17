@@ -15,10 +15,18 @@ public class SceneLoader : MonoBehaviour {
             loadData.data.secX = 0;
             loadData.data.secZ = 0;
             loadBase();
+        }else if(loadData.data.sceneName.Equals("resume"))
+        {
+            if(!loadData.data.loadResume())
+            {
+                loadData.data.sceneName = System.DateTime.Now.ToString("yyyyMMddHHmmss");
+                loadData.data.secX = 0;
+                loadData.data.secZ = 0;
+                loadBase();
+            }
         }else
         {
-            loadData.data.seed = seed;
-            loadScene(seed);
+            loadData.data.loadSceneName();
         }
 	}
 	

@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Controller : MonoBehaviour {
-    public static Controller control;
 	public double maxSpeed, hydrogen, fuelPerTime;
     public const double maxH = 100;
-    private float boostFuel,regFuel, sWidth, guiRatio;
 	public float  forceAmount, currentSpeed, thrust, turn, shipRotationSpeed, shipThrust, boostThrust = 1.5f;
 	public bool allowMovement;
 	public Rigidbody rb;
+    public List<int> upgrades;
+
+    private float boostFuel, regFuel, sWidth, guiRatio;
     private bool full, high, mid, low, empty;
 
     public GUISkin guiSkin;
@@ -23,6 +25,7 @@ public class Controller : MonoBehaviour {
         regFuel = shipThrust / 100000;
         //the boost fuel usage is equal to the regular usage * the boost thrust squared
         boostFuel = regFuel * boostThrust;
+        
 	}
 
 
