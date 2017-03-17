@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\MainMenu\UI\Switcher.cs" />
     <Compile Include="Assets\Scripts\MainMenu\loadData.cs" />
     <Compile Include="Assets\Scripts\MainMenu\orbit.cs" />
+    <Compile Include="Assets\Scripts\Pause\pause.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneLoader.cs" />
     <Compile Include="Assets\Scripts\Ship\Controller.cs" />
     <Compile Include="Assets\Scripts\Ship\onCollision.cs" />

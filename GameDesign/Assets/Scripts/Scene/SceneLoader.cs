@@ -78,13 +78,13 @@ public class SceneLoader : MonoBehaviour {
 			spawnedPlanet.transform.position = position;
 		}
 	}
-    public void loadBase()
+    public GameObject loadBase()
     {
         
         spawnSun();
 
         GameObject spawnedBase = GameObject.Instantiate(station);
-        
+        return spawnedBase;
     }
 
     private void spawnSun(int size = 250, int temperature = 25)

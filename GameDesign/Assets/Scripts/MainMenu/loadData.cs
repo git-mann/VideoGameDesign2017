@@ -12,6 +12,7 @@ public class loadData : MonoBehaviour {
     public int seed;
     public List<double> molH;
     public GameObject sun;
+
     private void Awake()
     {
         if(data == null)
@@ -24,6 +25,10 @@ public class loadData : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+    }
+    private void Update()
+    {
+        
     }
     //this and expandMol are basically the inverse of each other
     //Condense mol will coppy all of the hydrogen to this object for saving while expand mol coppies them all to planets after loading
@@ -42,13 +47,25 @@ public class loadData : MonoBehaviour {
             }
         }
     }
+    private void condenseBase()
+    {
+        GameObject mainBase = GameObject.FindGameObjectWithTag("Base");
+        
+        if (mainBase != null)
+        {
+            Base home = new Base(mainBase.GetComponent<station>());
+            saveBase(home);
+            GameObject.Destroy(mainBase);
+
+        }
+    }
     private void expandMol()
     {
         GameObject sun = GameObject.FindGameObjectWithTag("Sun");
         
         sun.GetComponent<star>().molH = molH[0];
         GameObject[] plans = GameObject.FindGameObjectsWithTag("Planet");
-        
+        this.molH.RemoveAt(0);
         if (plans.Length != 0)
         {
             for (int i = 1; i < plans.Length; i++)
@@ -61,11 +78,9 @@ public class loadData : MonoBehaviour {
     public void saveSector()
     {
         condenseMol();
-        // if the sector is equal to 0,0 save the base
-        if (secX == 0 && secZ == 0)
-        {
 
-        }
+        condenseBase();
+        
         SceneLoader scene = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
 
         this.seed = scene.seed;
@@ -82,12 +97,36 @@ public class loadData : MonoBehaviour {
         bf.Serialize(output, save);
         output.Close();
     }
+    private void saveBase(Base obje)
+    {
+        SceneLoader scene = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
+        BinaryFormatter bf = new BinaryFormatter();
+        if (!Directory.Exists(Application.persistentDataPath + sceneName + "/Sectors/"))
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + "/" + sceneName + "/Sectors/");
+        }
+        FileStream output = File.Open(Application.persistentDataPath + "/" + sceneName + "/Sectors/base.dat", FileMode.OpenOrCreate);
+        bf.Serialize(output, obje);
+        output.Close();
+    }
+    private void loadBase(SceneLoader scene)
+    {
+        station station =scene.loadBase().GetComponent<station>();
 
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream input = File.Open(Application.persistentDataPath + "/" + sceneName + "/Sectors/base.dat", FileMode.OpenOrCreate);
+        Base sector = (Base)bf.Deserialize(input);
+        station.molH = sector.molH;
+        station.upgradesUsed = sector.upgrades;
+        expandMol();
+    }
     public void load()
     {
         SceneLoader scene = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
 
+
         string fileName = "X" + secX.ToString() + "Z" + secZ.ToString() + ".dat";
+
 
         if (File.Exists(Application.persistentDataPath + "/"+ sceneName + "/Sectors/" + fileName))
         {
@@ -95,23 +134,25 @@ public class loadData : MonoBehaviour {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream input = File.Open(Application.persistentDataPath +"/"+  sceneName + "/Sectors/" + fileName, FileMode.OpenOrCreate);
             SaveSector sector = (SaveSector)bf.Deserialize(input);
-            if(secX !=0 && secZ != 0)
+            if(secX !=0 || secZ != 0)
             {
                 this.seed = sector.seed;
                 this.molH = sector.molH;
                 scene.loadScene(seed);
-            }else
+                expandMol();
+            }
+            else
             {
                 this.molH = sector.molH;
-                scene.loadBase();
+                loadBase(scene);
             }
-            
         }
         else
         {
             scene.generateWithoutSeed();
         }
     }
+
 
 }
 [Serializable]
@@ -127,8 +168,15 @@ class SaveSector
         this.molH = molH;
     }
 }
+[Serializable]
 class Base
 {
-
+    public List<int> upgrades;
+    public double molH;
+    public Base(station stat)
+    {
+        this.upgrades = stat.upgradesUsed;
+        this.molH = stat.molH;
+    }
 }
 

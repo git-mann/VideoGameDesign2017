@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class station : MonoBehaviour {
-
+    public double molH;
+    public List<int> upgradesUsed;
 	// Use this for initialization
 	void Start () {
 		
