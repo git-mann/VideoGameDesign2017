@@ -11,7 +11,7 @@ public class SceneLoader : MonoBehaviour {
     void Start () {
         
         if (loadData.data.sceneName.Equals("new")){
-            loadData.data.sceneName = System.DateTime.Now.ToString("yyyyMMddHHmmss");
+            loadData.data.sceneName = System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
             loadData.data.secX = 0;
             loadData.data.secZ = 0;
             loadBase();
@@ -19,7 +19,7 @@ public class SceneLoader : MonoBehaviour {
         {
             if(!loadData.data.loadResume())
             {
-                loadData.data.sceneName = System.DateTime.Now.ToString("yyyyMMddHHmmss");
+                loadData.data.sceneName = System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
                 loadData.data.secX = 0;
                 loadData.data.secZ = 0;
                 loadBase();
