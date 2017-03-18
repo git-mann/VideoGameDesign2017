@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Controller : MonoBehaviour {
-	public double maxSpeed, hydrogen, fuelPerTime;
-    public const double maxH = 100;
+	public double maxSpeed, hydrogen = 50, fuelPerTime;
+     double maxH = 100;
 	public float  forceAmount, currentSpeed, thrust, turn, shipRotationSpeed, shipThrust, boostThrust = 1.5f;
 	public bool allowMovement;
 	public Rigidbody rb;
@@ -19,7 +19,6 @@ public class Controller : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		hydrogen = 50;
 		rb = transform.GetComponent<Rigidbody>();
         //calculating the fuel usage. it should come out to .09/sec
         regFuel = shipThrust / 100000;
@@ -220,9 +219,16 @@ public class Controller : MonoBehaviour {
             return false;
         }
 	}
+    public void transfer()
+    {
+        hydrogen -= .1;
+    }
     public double getHydrogen()
     {
         return hydrogen;
     }
-    
+    public double getMaxHydrogen()
+    {
+        return maxH;
+    }
 }
