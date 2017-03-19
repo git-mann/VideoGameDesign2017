@@ -92,6 +92,7 @@
     <Compile Include="Assets\Scripts\Ship\Controller.cs" />
     <Compile Include="Assets\Scripts\Ship\onCollision.cs" />
     <Compile Include="Assets\Scripts\station\station.cs" />
+    <Compile Include="Assets\Scripts\station\upgradeMenu\menu.cs" />
     <Compile Include="Assets\StarNestSkybox\Scripts\CameraScroll.cs" />
     <Compile Include="Assets\StarNestSkybox\Scripts\SkyboxSwitcher.cs" />
   </ItemGroup>

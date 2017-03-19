@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Controller : MonoBehaviour {
-	public double maxSpeed, hydrogen = 50, fuelPerTime;
+	public double maxSpeed, hydrogen, fuelPerTime;
      double maxH = 100;
 	public float  forceAmount, currentSpeed, thrust, turn, shipRotationSpeed, shipThrust, boostThrust = 1.5f;
 	public bool allowMovement;
@@ -24,7 +24,6 @@ public class Controller : MonoBehaviour {
         regFuel = shipThrust / 100000;
         //the boost fuel usage is equal to the regular usage * the boost thrust squared
         boostFuel = regFuel * boostThrust;
-        
 	}
 
 
