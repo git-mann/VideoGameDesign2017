@@ -9,6 +9,7 @@ public class onCollision : MonoBehaviour {
     public GameObject thing;
     station station;
     Controller con;
+    public float rotationSpeed = 1f;
     private void OnTriggerEnter(UnityEngine.Collider other)
     {
         thing = other.gameObject;
@@ -52,16 +53,42 @@ public class onCollision : MonoBehaviour {
         {
             hLeft = plan.reduceHydrogen();
             spaceLeft = con.vacuum();
-            thing.GetComponent<ParticleSystem>().Play();
-        } else if (station.checkSpace() &&!empty&&transferring && Input.GetAxis("Vacuum")!=0)
-        {
-            con.transfer();
-            station.transfer();
-        } else if (Input.GetAxis("Vacuum")== 0)
-        {
-            thing.GetComponent<ParticleSystem>().Pause();
-            thing.GetComponent<ParticleSystem>().Clear();
+            if(thing.tag == "Sun")
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(ship.transform.GetChild(2).transform.position -  thing.transform.GetChild(0).transform.position);
 
+                // Smoothly rotate towards the target point.
+                thing.transform.GetChild(0).transform.rotation = Quaternion.Slerp(thing.transform.GetChild(0).transform.rotation,  targetRotation, rotationSpeed * Time.deltaTime);
+                thing.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Play();
+            }
+            else
+            {
+                thing.GetComponent<ParticleSystem>().Play();
+            }
+            
+        } else if (!empty&&transferring && Input.GetAxis("Vacuum")!=0)
+        {
+            if (station)
+            {
+                if (station.checkSpace())
+                {
+                    con.transfer();
+                    station.transfer();
+                }
+            }
+        } else
+        {
+            if (thing.tag == "Sun")
+            {
+                thing.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Pause();
+              //  thing.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Clear();
+            }
+            else
+            {
+                thing.GetComponent<ParticleSystem>().Pause();
+                thing.GetComponent<ParticleSystem>().Clear();
+
+            }
         }
         if(con.getHydrogen() <= con.getMaxHydrogen() / 10)
         {

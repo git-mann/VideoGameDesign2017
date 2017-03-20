@@ -7,10 +7,11 @@ public class CelestialBody : MonoBehaviour {
 	public int orbitSpeed, temperature, starClass;
 	public double percentH, molH;
 	public Material[] mats;
+    public Transform ship;
 
 	public virtual void Start ()
 	{
-
+        ship = GameObject.FindGameObjectWithTag("Player").transform;
 	}
 
 	public virtual void Update ()

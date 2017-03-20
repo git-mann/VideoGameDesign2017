@@ -16,10 +16,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000013172715226}
-  - 212: {fileID: 212000014282116938}
+  - component: {fileID: 4000013172715226}
+  - component: {fileID: 212000014282116938}
+  - component: {fileID: 136410423036442466}
   m_Layer: 0
   m_Name: ShipSprite
   m_TagString: Untagged
@@ -32,14 +33,14 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000013441197574}
-  - 20: {fileID: 20000010969416968}
-  - 124: {fileID: 124000011668143208}
-  - 92: {fileID: 92000012819884920}
-  - 81: {fileID: 81000014272957926}
-  - 45: {fileID: 45000010017433930}
+  - component: {fileID: 4000013441197574}
+  - component: {fileID: 20000010969416968}
+  - component: {fileID: 124000011668143208}
+  - component: {fileID: 92000012819884920}
+  - component: {fileID: 81000014272957926}
+  - component: {fileID: 45000010017433930}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -52,11 +53,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000013923405578}
-  - 54: {fileID: 54000013249436406}
-  - 114: {fileID: 114000010429018642}
+  - component: {fileID: 4000013923405578}
+  - component: {fileID: 54000013249436406}
+  - component: {fileID: 114000010429018642}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Player
@@ -69,10 +70,10 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000011461457144}
-  - 212: {fileID: 212000011201914588}
+  - component: {fileID: 4000011461457144}
+  - component: {fileID: 212000011201914588}
   m_Layer: 8
   m_Name: ShipMiniMap
   m_TagString: Untagged
@@ -89,10 +90,10 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 500, y: 500, z: 1}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000013923405578}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4000013172715226
 Transform:
   m_ObjectHideFlags: 1
@@ -102,10 +103,10 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -500, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000013923405578}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4000013441197574
 Transform:
   m_ObjectHideFlags: 1
@@ -115,10 +116,10 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000013923405578}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4000013923405578
 Transform:
   m_ObjectHideFlags: 1
@@ -128,13 +129,13 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 235, y: 450, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000013441197574}
   - {fileID: 4000011461457144}
   - {fileID: 4000013172715226}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &20000010969416968
 Camera:
   m_ObjectHideFlags: 1
@@ -229,6 +230,8 @@ MonoBehaviour:
   boostThrust: 10
   allowMovement: 0
   rb: {fileID: 0}
+  upgrades: 
+  guiSkin: {fileID: 0}
 --- !u!124 &124000011668143208
 Behaviour:
   m_ObjectHideFlags: 1
@@ -236,6 +239,19 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012172745050}
   m_Enabled: 1
+--- !u!136 &136410423036442466
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010979837686}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.15
+  m_Height: 0.15
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0.0000076293945}
 --- !u!212 &212000011201914588
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -250,7 +266,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 0
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -258,7 +276,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 1
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -283,7 +301,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 0
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -291,7 +311,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 1
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89

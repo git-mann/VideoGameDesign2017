@@ -81,6 +81,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Audio\Oscillator.cs" />
     <Compile Include="Assets\Scripts\Celestial Bodies\CelestialBody.cs" />
     <Compile Include="Assets\Scripts\Celestial Bodies\planet.cs" />
     <Compile Include="Assets\Scripts\Celestial Bodies\star.cs" />
