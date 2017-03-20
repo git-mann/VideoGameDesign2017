@@ -6,6 +6,7 @@ public class SceneLoader : MonoBehaviour {
 	public int distanceFromSol, seed;
 	public string nameOfSystem;
 	public GameObject planet, star, hydrogen, station;
+    public Material psMaterial;
     
     // Use this for initialization
     void Start () {
@@ -119,6 +120,7 @@ public class SceneLoader : MonoBehaviour {
         psMain.startSize = .01f;
         psMain.startSpeed = 31f;
         psMain.prewarm = true;
+        spawnedSunPS.GetComponent<ParticleSystemRenderer>().material = psMaterial;
         psShape.shapeType = ParticleSystemShapeType.ConeVolume;
         psShape.radius = .01f;
         psShape.angle = 0f;
@@ -130,6 +132,7 @@ public class SceneLoader : MonoBehaviour {
         psCollision.bounce = 0f;
         psCollision.enableInteriorCollisions = false;
         psCollision.lifetimeLoss = 1f;
+        
         GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
         camera.GetComponent<Skybox>().material.SetInt("_Formuparam", randomIntFromSeed(450, 550));
         loadData.data.sun = spawnedSun;
