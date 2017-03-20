@@ -9,6 +9,7 @@ public class Controller : MonoBehaviour {
 	public bool allowMovement;
 	public Rigidbody rb;
     public List<int> upgrades;
+    public Sprite[] textures;
 
     private float boostFuel, regFuel, sWidth, guiRatio;
     private bool full, high, mid, low, empty;
@@ -110,15 +111,27 @@ public class Controller : MonoBehaviour {
 			allowMovement = false;
 		}
 
-        
+        Debug.Log(Input.GetAxis("Vertical"));
 		currentSpeed = rb.velocity.magnitude;
 		if (allowMovement) {
 			if (Input.GetAxis ("Vertical") != 0) {
 				thrust = Input.GetAxis ("Vertical") * shipThrust;
+
+                if (Input.GetAxis("Vertical") > 0f)
+                {
+                    this.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = textures[1];
+                    this.GetComponent<SoundOscillator>().frequency = Mathf.Lerp(this.GetComponent<SoundOscillator>().frequency, 200, 1.5f * Time.deltaTime);
+                } else if(Input.GetAxis("Vertical") < 0f)
+                {
+                    this.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = textures[2];
+                    this.GetComponent<SoundOscillator>().frequency = Mathf.Lerp(this.GetComponent<SoundOscillator>().frequency, 200, 1.5f * Time.deltaTime);
+                }
+
                 // sutracting used fuel from hydrogen
                 
 				if (Input.GetKey(KeyCode.LeftShift)) {
-					thrust *= boostThrust;
+                    this.GetComponent<SoundOscillator>().frequency = Mathf.Lerp(this.GetComponent<SoundOscillator>().frequency, 250, 3f * Time.deltaTime);
+                    thrust *= boostThrust;
                     hydrogen -= boostFuel;
 				}
                 hydrogen -= regFuel;
@@ -127,6 +140,11 @@ public class Controller : MonoBehaviour {
 				turn = Input.GetAxis ("Horizontal") * shipRotationSpeed;
                 hydrogen -= (regFuel / 10);
 			}
+            if(Input.GetAxis("Vertical") == 0f)
+            {
+                this.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = textures[0];
+                this.GetComponent<SoundOscillator>().frequency = Mathf.Lerp(this.GetComponent<SoundOscillator>().frequency, 100, 1.5f * Time.deltaTime);
+            }
 		
 
 			rb.AddForce(thrust * transform.forward * Time.deltaTime);

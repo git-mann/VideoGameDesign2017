@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4000013172715226}
   - component: {fileID: 212000014282116938}
   - component: {fileID: 136410423036442466}
+  - component: {fileID: 136358866969370858}
   m_Layer: 0
   m_Name: ShipSprite
   m_TagString: Untagged
@@ -58,6 +59,8 @@ GameObject:
   - component: {fileID: 4000013923405578}
   - component: {fileID: 54000013249436406}
   - component: {fileID: 114000010429018642}
+  - component: {fileID: 65948848006113826}
+  - component: {fileID: 114580267758036948}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Player
@@ -89,7 +92,7 @@ Transform:
   m_GameObject: {fileID: 1000012643297396}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 500, y: 500, z: 1}
+  m_LocalScale: {x: 1200, y: 1200, z: 1}
   m_Children: []
   m_Father: {fileID: 4000013923405578}
   m_RootOrder: 1
@@ -102,7 +105,7 @@ Transform:
   m_GameObject: {fileID: 1000010979837686}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -500, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalScale: {x: 70, y: 70, z: 1}
   m_Children: []
   m_Father: {fileID: 4000013923405578}
   m_RootOrder: 2
@@ -193,6 +196,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &65948848006113826
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012183619648}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!81 &81000014272957926
 AudioListener:
   m_ObjectHideFlags: 1
@@ -218,20 +233,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2baa2c788c7f548ae50ed1e231b6fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 30
+  maxSpeed: 90
   hydrogen: 0
   fuelPerTime: 0
   forceAmount: 0
   currentSpeed: 0
   thrust: 0
   turn: 0
-  shipRotationSpeed: 1.5
-  shipThrust: 30
-  boostThrust: 10
+  shipRotationSpeed: 150
+  shipThrust: 90
+  boostThrust: 15
   allowMovement: 0
   rb: {fileID: 0}
   upgrades: 
-  guiSkin: {fileID: 0}
+  textures:
+  - {fileID: 21300000, guid: 556f35d5c9fde2f4a907f34c1f56c075, type: 3}
+  - {fileID: 21300000, guid: d773342e724309c46ad44295d9c6f8c5, type: 3}
+  - {fileID: 21300000, guid: dde45bd61b5944942b148a2a9b832c70, type: 3}
+  guiSkin: {fileID: 11400000, guid: 3fd07bda7b705ca4e8ebbc2bee2361a0, type: 2}
+--- !u!114 &114580267758036948
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012183619648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 184fa47b8f8c3a84e8b3cf779a45575a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ship: {fileID: 1000012183619648}
+  thing: {fileID: 0}
+  rotationSpeed: 1
 --- !u!124 &124000011668143208
 Behaviour:
   m_ObjectHideFlags: 1
@@ -239,6 +272,19 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012172745050}
   m_Enabled: 1
+--- !u!136 &136358866969370858
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010979837686}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.0000002
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0.0000076293945}
 --- !u!136 &136410423036442466
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -283,8 +329,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9bca7cf96e21de648a29a464da399202, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.13103437, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 9ce6b0a77eb42c24a97992ad8fb6514c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!212 &212000014282116938
@@ -318,7 +364,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: caf6aea7ad0a1c34884d347e45b3e369, type: 3}
-  m_Color: {r: 0, g: 0.42068958, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 9ce6b0a77eb42c24a97992ad8fb6514c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
