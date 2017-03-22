@@ -138,6 +138,7 @@ MonoBehaviour:
   frequency: 262
   gain: 0.05
   volume: 0.05
+  prevTime: 0
   frequencies: []
   currentFrequency: 0
 --- !u!166 &166000012336597784

@@ -16,6 +16,13 @@ public class Switcher : MonoBehaviour {
     public float musicVolume = -30f;
     public float soundsVolume = -30f;
     public AudioMixer mixer;
+    public AudioClip buttonOver;
+    public AudioClip buttonPress;
+    AudioSource audioSource;
+    public void Start()
+    {
+        audioSource = this.GetComponent<AudioSource>();
+    }
     public void resumeScene()
     {
         loadData.data.sceneName = "resume";
@@ -29,6 +36,7 @@ public class Switcher : MonoBehaviour {
     public void openSettings()
     {
         con.SetActive(true);
+        popSaves = false;
         settings = true;
     }
 
@@ -46,10 +54,24 @@ public class Switcher : MonoBehaviour {
         if (temp.Contains("resume.dat"))
             temp.Remove("resume.dat");
         hello = temp.ToArray();
+        settings = false;
         popSaves = true;
         con.SetActive(true);
         numSel = -1;
 
+    }
+    public void onButtonOver()
+    {
+        if (!audioSource.isPlaying) { 
+           audioSource.PlayOneShot(buttonOver, 0.1f);
+        }
+    }
+    public void onButtonPress()
+    {
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(buttonPress, 0.8f);
+        }
     }
     private void OnGUI()
     {
@@ -82,9 +104,9 @@ public class Switcher : MonoBehaviour {
             GUI.Label(new Rect(Screen.width / 2 - 110, Screen.height / 2 - 40, 220, 20), "Master Volume");
             GUI.Label(new Rect(Screen.width / 2 - 110, Screen.height / 2 , 220, 20), "Music Volume");
             GUI.Label(new Rect(Screen.width / 2 - 110, Screen.height / 2 + 40, 220, 20), "Sounds Volume");
-            masterVolume = GUI.HorizontalSlider(new Rect(Screen.width / 2 - 110, Screen.height / 2 - 20, 220, 20), masterVolume, -80f, 20f);
-            musicVolume = GUI.HorizontalSlider(new Rect(Screen.width / 2 - 110, Screen.height / 2 + 20, 220, 20), musicVolume, -80f, 20f);
-            soundsVolume = GUI.HorizontalSlider(new Rect(Screen.width / 2 - 110, Screen.height / 2 + 60, 220, 20), soundsVolume, -80f, 20f);
+            masterVolume = Mathf.Round(GUI.HorizontalSlider(new Rect(Screen.width / 2 - 110, Screen.height / 2 - 20, 220, 20), masterVolume, -80f, 20f));
+            musicVolume = Mathf.Round(GUI.HorizontalSlider(new Rect(Screen.width / 2 - 110, Screen.height / 2 + 20, 220, 20), musicVolume, -80f, 20f));
+            soundsVolume = Mathf.Round(GUI.HorizontalSlider(new Rect(Screen.width / 2 - 110, Screen.height / 2 + 60, 220, 20), soundsVolume, -80f, 20f));
 
             mixer.SetFloat("MasterVolume", masterVolume);
             mixer.SetFloat("MusicVolume", musicVolume);

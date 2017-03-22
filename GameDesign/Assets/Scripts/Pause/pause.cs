@@ -8,13 +8,16 @@ public class pause : MonoBehaviour {
     public GameObject menu, pauseMenu, settingsMenu;
     public Slider masterSlider, musicSlider, soundsSlider;
     public AudioMixer mixer;
+    public AudioClip buttonOver;
+    public AudioClip buttonPress;
+    AudioSource audioSource;
 
     private bool setting;
     private float masterVolume, musicVolume, soundsVolume;
 
     // Use this for initialization
     void Start () {
-
+        audioSource = this.GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -60,6 +63,20 @@ public class pause : MonoBehaviour {
     public void save()
     {
         loadData.data.Save();
+    }
+    public void onButtonOver()
+    {
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(buttonOver);
+        }
+    }
+    public void onButtonPress()
+    {
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(buttonPress);
+        }
     }
     public void updateMaster(float value)
     {

@@ -29,8 +29,6 @@ public class Oscillator : MonoBehaviour {
 
     private void Update()
     {
-        Debug.Log("Time Scale:" + Time.timeScale);
-
         gain = volume;
         frequency = frequencies[currentFrequency];
         if((Mathf.Round(Time.realtimeSinceStartup) - prevTime)==1) {

@@ -111,7 +111,6 @@ public class Controller : MonoBehaviour {
 			allowMovement = false;
 		}
 
-        Debug.Log(Input.GetAxis("Vertical"));
 		currentSpeed = rb.velocity.magnitude;
 		if (allowMovement) {
 			if (Input.GetAxis ("Vertical") != 0) {
