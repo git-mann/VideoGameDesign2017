@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class pause : MonoBehaviour {
-    public GameObject menu;
+    public GameObject menu, pauseMenu, settingsMenu;
+    public Slider masterSlider, musicSlider, soundsSlider;
     public AudioMixer mixer;
 
-    public float masterVolume;
-    public float soundsVolume;
-    public float musicVolume;
     private bool setting;
+    private float masterVolume, musicVolume, soundsVolume;
 
     // Use this for initialization
     void Start () {
-		
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -23,8 +23,15 @@ public class pause : MonoBehaviour {
         {
             
             menu.SetActive(true);
+            pauseMenu.SetActive(true);
             Time.timeScale = .001f;
         }
+    }
+    public void back()
+    {
+        settingsMenu.SetActive(false);
+        menu.SetActive(true);
+        pauseMenu.SetActive(true);
     }
     public void saveExit()
     {
@@ -35,35 +42,35 @@ public class pause : MonoBehaviour {
     {
         Debug.Log("resume");
         menu.SetActive(false);
+        pauseMenu.SetActive(false);
         Time.timeScale = 1;
     }
     public void settings()
     {
         setting = true;
+        settingsMenu.SetActive(true);
+        pauseMenu.SetActive(false);
+        mixer.GetFloat("MasterVolume", out masterVolume);
+        mixer.GetFloat("MusicVolume", out musicVolume);
+        mixer.GetFloat("SoundsVolume", out soundsVolume);
+        masterSlider.value = masterVolume;
+        musicSlider.value = musicVolume;
+        soundsSlider.value = soundsVolume;
     }
     public void save()
     {
         loadData.data.Save();
     }
-    private void OnGUI()
+    public void updateMaster(float value)
     {
-        if (setting)
-        {
-            GUI.Label(new Rect(Screen.width / 2 - 110, Screen.height / 2 - 40, 220, 20), "Master Volume");
-            GUI.Label(new Rect(Screen.width / 2 - 110, Screen.height / 2, 220, 20), "Music Volume");
-            GUI.Label(new Rect(Screen.width / 2 - 110, Screen.height / 2 + 40, 220, 20), "Sounds Volume");
-            masterVolume = GUI.HorizontalSlider(new Rect(Screen.width / 2 - 110, Screen.height / 2 - 20, 220, 20), masterVolume, -80f, 20f);
-            musicVolume = GUI.HorizontalSlider(new Rect(Screen.width / 2 - 110, Screen.height / 2 + 20, 220, 20), musicVolume, -80f, 20f);
-            soundsVolume = GUI.HorizontalSlider(new Rect(Screen.width / 2 - 110, Screen.height / 2 + 60, 220, 20), soundsVolume, -80f, 20f);
-
-            mixer.SetFloat("MasterVolume", masterVolume);
-            mixer.SetFloat("MusicVolume", musicVolume);
-            mixer.SetFloat("SoundsVolume", soundsVolume);
-
-            if (GUI.Button(new Rect(Screen.width / 2 - 45, Screen.height / 2 + 220, 90, 50), "Done"))
-            {
-                setting = false;
-            }
-        }
+        mixer.SetFloat("MasterVolume", value);
+    }
+    public void updateMusic(float value)
+    {
+        mixer.SetFloat("MusicVolume", value);
+    }
+    public void updateSounds(float value)
+    {
+        mixer.SetFloat("SoundsVolume", value);
     }
 }

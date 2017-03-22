@@ -8,8 +8,8 @@ public class Oscillator : MonoBehaviour {
     double sampling_frequency = 48000.0;
 
     public float gain;
-    public float volume = 0.1f;
-
+    public float volume = 0.05f;
+   public float prevTime = 0;
     public float[] frequencies;
     public int currentFrequency;
 
@@ -27,16 +27,18 @@ public class Oscillator : MonoBehaviour {
         frequencies[7] = 523;
     }
 
- 
-
-    private void FixedUpdate()
+    private void Update()
     {
+        Debug.Log("Time Scale:" + Time.timeScale);
+
+        gain = volume;
         frequency = frequencies[currentFrequency];
-        if((Time.time % 1) == 0)
-        {
+        if((Mathf.Round(Time.realtimeSinceStartup) - prevTime)==1) {
             currentFrequency = Random.Range(0, 7);
         }
         currentFrequency = currentFrequency % frequencies.Length;
+        prevTime = Mathf.Round(Time.realtimeSinceStartup);
+
     }
 
     private void OnAudioFilterRead(float[] data, int channels)

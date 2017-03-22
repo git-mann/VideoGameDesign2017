@@ -18,7 +18,10 @@ public class station : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         transform.RotateAround(new Vector3(0, 0, 0), Vector3.up,  Time.deltaTime/ 10);
-        
+        if(Time.timeScale < 0.5f)
+        {
+            so.gain = 0;
+        }
     }
    
     void beep()
