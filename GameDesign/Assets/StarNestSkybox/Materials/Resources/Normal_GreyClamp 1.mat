@@ -24,7 +24,7 @@ Material:
       second: 1
     - first:
         name: _CamScroll
-      second: 0.05
+      second: 0.1
     - first:
         name: _Darkmatter
       second: 0
@@ -33,7 +33,7 @@ Material:
       second: 62.3
     - first:
         name: _Formuparam
-      second: 520
+      second: 470
     - first:
         name: _Iterations
       second: 12

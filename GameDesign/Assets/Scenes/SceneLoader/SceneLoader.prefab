@@ -16,10 +16,10 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000012999009050}
-  - 114: {fileID: 114000012138298028}
+  - component: {fileID: 4000012999009050}
+  - component: {fileID: 114000012138298028}
   m_Layer: 0
   m_Name: SceneLoader
   m_TagString: Untagged
@@ -36,10 +36,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114000012138298028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -56,3 +56,6 @@ MonoBehaviour:
   nameOfSystem: 
   planet: {fileID: 1000011563531616, guid: 07edc07732b08084081164a5db229685, type: 2}
   star: {fileID: 1000011563531616, guid: cc5cac4755234304e9f9ed8348e93fbb, type: 2}
+  hydrogen: {fileID: 0}
+  station: {fileID: 0}
+  psMaterial: {fileID: 2100000, guid: d3985a264581fa94a9357607931e482c, type: 2}
