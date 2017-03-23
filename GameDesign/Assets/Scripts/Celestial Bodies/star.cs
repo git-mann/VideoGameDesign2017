@@ -3,8 +3,10 @@ using System.Collections;
 
 public class star : CelestialBody {
     MeshRenderer rend;
+    public Transform ParticleSystemObject;
 	public override void Start ()
 	{
+        base.Start();
 		if (temperature < 30.5) {
 			starClass = 1;	
 		} else if (temperature >= 30.5 && temperature < 50) { 
@@ -31,7 +33,7 @@ public class star : CelestialBody {
 		rend = transform.gameObject.GetComponent<MeshRenderer>();
         rend.material = mats[starClass - 1];
 
-
+        ParticleSystemObject = this.transform.GetChild(0);
     }
     public new  bool reduceHydrogen()
     {
