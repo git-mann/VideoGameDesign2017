@@ -6,6 +6,7 @@ public class SceneLoader : MonoBehaviour {
 	public int distanceFromSol, seed;
 	public string nameOfSystem;
 	public GameObject planet, star, hydrogen, station;
+    public Material psMaterial;
     
     // Use this for initialization
     void Start () {
@@ -106,15 +107,32 @@ public class SceneLoader : MonoBehaviour {
         spawnedSun.GetComponent<SphereCollider>().isTrigger = true;
         //resizing collider
         spawnedSun.GetComponent<SphereCollider>().radius = 1.25f;
-        spawnedSun.AddComponent<ParticleSystem>();
+        GameObject spawnedSunPS = spawnedSun.transform.GetChild(0).gameObject;
+        spawnedSunPS.transform.localScale = new Vector3(spawnedSun.transform.localScale.x, spawnedSun.transform.localScale.y, 1);
+        spawnedSunPS.AddComponent<ParticleSystem>();
         ParticleSystem ps;
-        ps = spawnedSun.GetComponent<ParticleSystem>();
+        ps = spawnedSunPS.GetComponent<ParticleSystem>();
         ps.Pause();
         ParticleSystem.MainModule psMain = ps.main;
         ParticleSystem.ShapeModule psShape = ps.shape;
+        ParticleSystem.CollisionModule psCollision = ps.collision;
+        psMain.duration = 2f;
         psMain.startSize = .01f;
-        psMain.startSpeed = .5f;
-        psShape.radius = .1f;
+        psMain.startSpeed = 31f;
+        psMain.prewarm = true;
+        spawnedSunPS.GetComponent<ParticleSystemRenderer>().material = psMaterial;
+        psShape.shapeType = ParticleSystemShapeType.ConeVolume;
+        psShape.radius = .01f;
+        psShape.angle = 0f;
+        psShape.length = (spawnedSun.transform.localScale.x / 2);
+        psCollision.enabled = true;
+        psCollision.type = ParticleSystemCollisionType.World;
+        psCollision.mode = ParticleSystemCollisionMode.Collision3D;
+        psCollision.dampen = 1f;
+        psCollision.bounce = 0f;
+        psCollision.enableInteriorCollisions = false;
+        psCollision.lifetimeLoss = 1f;
+        
         GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
         camera.GetComponent<Skybox>().material.SetInt("_Formuparam", randomIntFromSeed(450, 550));
         loadData.data.sun = spawnedSun;
