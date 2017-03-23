@@ -50,7 +50,7 @@ public class loadData : MonoBehaviour {
     }
     void condenseWODestroy()
     {
-        GameObject sun = GameObject.FindGameObjectWithTag("Sun");
+         sun = GameObject.FindGameObjectWithTag("Sun");
         molH.Add(sun.GetComponent<star>().molH);
         GameObject[] plans = GameObject.FindGameObjectsWithTag("Planet");
         if (plans.Length != 0)
@@ -84,7 +84,7 @@ public class loadData : MonoBehaviour {
     #endregion
     private void expandMol()
     {
-        GameObject sun = GameObject.FindGameObjectWithTag("Sun");
+         sun = GameObject.FindGameObjectWithTag("Sun");
         
         sun.GetComponent<star>().molH = molH[0];
         GameObject[] plans = GameObject.FindGameObjectsWithTag("Planet");
@@ -130,7 +130,7 @@ public class loadData : MonoBehaviour {
         string fileName = "X" + secX.ToString() + "Z" + secZ.ToString() + ".dat";
 
         BinaryFormatter bf = new BinaryFormatter();
-        if (!Directory.Exists(Application.persistentDataPath + sceneName + "/Sectors/"))
+        if (!Directory.Exists(Application.persistentDataPath +"/"+ sceneName + "/Sectors/"))
         {
             Directory.CreateDirectory(Application.persistentDataPath + "/" + sceneName + "/Sectors/");
         }
@@ -158,7 +158,7 @@ public class loadData : MonoBehaviour {
         Scene scene = new Scene();
         scene.XSec = secX;
         scene.zSec = secZ;
-        if (!Directory.Exists(Application.persistentDataPath + sceneName + "/"))
+        if (!Directory.Exists(Application.persistentDataPath +"/" + sceneName + "/"))
         {
             Directory.CreateDirectory(Application.persistentDataPath + "/" + sceneName + "/");
         }
@@ -171,7 +171,7 @@ public class loadData : MonoBehaviour {
         Controller control = GameObject.FindGameObjectWithTag("Player").GetComponent<Controller>();
         BinaryFormatter bf = new BinaryFormatter();
         Ship ship = new Ship(control);
-        if (!Directory.Exists(Application.persistentDataPath + sceneName + "/"))
+        if (!Directory.Exists(Application.persistentDataPath + "/"+ sceneName + "/"))
         {
             Directory.CreateDirectory(Application.persistentDataPath + "/" + sceneName + "/");
         }
@@ -302,7 +302,11 @@ public class loadData : MonoBehaviour {
         loadShip();
     }
 
-
+public void setSun()
+    {
+        sun = GameObject.FindGameObjectWithTag("Sun");
+        Debug.Log("Find sun");
+    }
     #endregion
 }
 [Serializable]

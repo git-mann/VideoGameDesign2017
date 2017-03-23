@@ -33,11 +33,8 @@ Material:
       second: 62.3
     - first:
         name: _Formuparam
-<<<<<<< HEAD
-      second: 535
-=======
+
       second: 470
->>>>>>> refs/remotes/origin/master
     - first:
         name: _Iterations
       second: 12
