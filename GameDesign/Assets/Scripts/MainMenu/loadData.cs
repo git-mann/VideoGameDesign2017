@@ -11,6 +11,12 @@ public class loadData : MonoBehaviour {
     public int secX, secZ;
     public int seed;
     public List<double> molH;
+    public upgrade[] stationUpgrades;
+    
+    List<int> costH = new List<int>();
+    List<string> upgrades = new List<string>();
+    List<string> description = new List<string>();
+    List<string> image = new List<string>();
     public GameObject sun;
 
     private void Awake()
@@ -29,6 +35,10 @@ public class loadData : MonoBehaviour {
     private void OnApplicationQuit()
     {
         this.Save();
+    }
+    private void Start()
+    {
+        this.initialize();
     }
     #region condense
     //this and expandMol are basically the inverse of each other
@@ -208,7 +218,7 @@ public class loadData : MonoBehaviour {
     {
         if (File.Exists(Application.persistentDataPath + "/resume.dat")) { 
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream input = File.Open(Application.persistentDataPath + "/resume.dat", FileMode.OpenOrCreate);
+        FileStream input = File.Open(Application.persistentDataPath + "/resume.dat", FileMode.Open);
         Resume sector = (Resume)bf.Deserialize(input);
         this.sceneName = sector.SceneName;
         return true;
@@ -245,6 +255,14 @@ public class loadData : MonoBehaviour {
         Base sector = (Base)bf.Deserialize(input);
         station.molH = sector.molH;
         station.upgradesUsed = sector.upgrades;
+        if (station.upgradesUsed.Contains(0))
+        {
+            station.gameObject.GetComponent<menu>().setHangerActive();
+        }
+        if (station.upgradesUsed.Contains(1))
+        {
+            station.gameObject.GetComponent<menu>().setStationActive();
+        }
         expandMol();
     }
     public void load()
@@ -302,11 +320,35 @@ public class loadData : MonoBehaviour {
         loadShip();
     }
 
-public void setSun()
+    public void setSun()
     {
         sun = GameObject.FindGameObjectWithTag("Sun");
         Debug.Log("Find sun");
     }
+    void initialize()
+    {
+        StreamReader stream = new StreamReader(Directory.GetCurrentDirectory() + @"\Assets\Upgrades\Station\Station.txt");
+        Debug.Log(Directory.GetCurrentDirectory());
+        int amt = Int32.Parse(stream.ReadLine());
+        int i = 0;
+        while(i++ < amt)
+        {
+            upgrades.Add(stream.ReadLine());
+            description.Add(stream.ReadLine());
+            costH.Add(Int32.Parse(stream.ReadLine()));
+            image.Add(stream.ReadLine());
+        }
+        i = 0;
+        stationUpgrades = new upgrade[amt];
+        for(int a = 0; a < amt; a++)
+        {
+            stationUpgrades[a] = new upgrade();
+            stationUpgrades[a].cost = costH[a];
+            stationUpgrades[a].description = description[a];
+            stationUpgrades[a].Img = image[a];
+            stationUpgrades[a].upgradeName = upgrades[a];
+        }
+    } 
     #endregion
 }
 [Serializable]
@@ -357,4 +399,18 @@ class Ship
 class Resume
 {
     public string SceneName;
+}
+public class upgrade
+{
+    public string upgradeName;
+    public int cost;
+    public string description;
+    private string img;
+
+    public string Img
+    {
+        get { return img; }
+        set { img = @"file://" + Directory.GetCurrentDirectory() + @"\Assets\Upgrades\Station\Images\"+ value; }
+    }
+
 }

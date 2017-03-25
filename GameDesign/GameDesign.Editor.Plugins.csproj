@@ -145,6 +145,7 @@
     <None Include="Assets\StarNestSkybox\StarNestSkyboxReadme.txt" />
     <None Include="Assets\StarNestSkybox\StarNestSkybox_HSV.shader" />
     <None Include="Assets\StarNestSkybox\hsv.cginc" />
+    <None Include="Assets\Upgrades\Station\station.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
