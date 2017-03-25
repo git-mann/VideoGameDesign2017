@@ -7,7 +7,9 @@ public class SceneLoader : MonoBehaviour {
 	public string nameOfSystem;
 	public GameObject planet, star, hydrogen, station;
     public Material psMaterial;
-    
+
+
+
     // Use this for initialization
     void Start () {
         

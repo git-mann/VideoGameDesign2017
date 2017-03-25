@@ -12,11 +12,12 @@ public class loadData : MonoBehaviour {
     public int seed;
     public List<double> molH;
     public upgrade[] stationUpgrades;
-    
+
     List<int> costH = new List<int>();
     List<string> upgrades = new List<string>();
     List<string> description = new List<string>();
     List<string> image = new List<string>();
+    station station;
     public GameObject sun;
 
     private void Awake()
@@ -248,22 +249,28 @@ public class loadData : MonoBehaviour {
     }
     private void loadBase(SceneLoader scene)
     {
-        station station =scene.loadBase().GetComponent<station>();
+        station = scene.loadBase().GetComponent<station>();
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream input = File.Open(Application.persistentDataPath + "/" + sceneName + "/Sectors/base.dat", FileMode.OpenOrCreate);
         Base sector = (Base)bf.Deserialize(input);
         station.molH = sector.molH;
         station.upgradesUsed = sector.upgrades;
+        station.upgrades = sector.upgradeVals;
+        expandMol();
+    }
+    public void loadUpgrades()
+    {
+        station = GameObject.FindGameObjectWithTag("Base").GetComponent<station>();
         if (station.upgradesUsed.Contains(0))
         {
-            station.gameObject.GetComponent<menu>().setHangerActive();
+            GameObject.Find("pause").GetComponent<menu>().setHangerActive();
         }
         if (station.upgradesUsed.Contains(1))
         {
-            station.gameObject.GetComponent<menu>().setStationActive();
+            GameObject.Find("pause").GetComponent<menu>().setStationActive();
+
         }
-        expandMol();
     }
     public void load()
     {
@@ -369,8 +376,10 @@ class Base
 {
     public List<int> upgrades;
     public double molH;
+    public int[] upgradeVals;
     public Base(station stat)
     {
+        this.upgradeVals = stat.upgrades;
         this.upgrades = stat.upgradesUsed;
         this.molH = stat.molH;
     }
@@ -385,7 +394,7 @@ class Scene
 class Ship
 {
     public double molH;
-    public List<int> upgrades;
+    public int[] upgrades;
     public float posX, posZ;
     public Ship(Controller control)
     {
