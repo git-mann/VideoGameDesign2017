@@ -86,6 +86,8 @@
     <Compile Include="Assets\Scripts\Celestial Bodies\CelestialBody.cs" />
     <Compile Include="Assets\Scripts\Celestial Bodies\planet.cs" />
     <Compile Include="Assets\Scripts\Celestial Bodies\star.cs" />
+    <Compile Include="Assets\Scripts\GUI\GUIStats.cs" />
+    <Compile Include="Assets\Scripts\GUI\NearestObject.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IEnum.cs" />
     <Compile Include="Assets\Scripts\MainMenu\UI\Switcher.cs" />
     <Compile Include="Assets\Scripts\MainMenu\loadData.cs" />

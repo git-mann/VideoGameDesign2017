@@ -49,55 +49,55 @@ public class Controller : MonoBehaviour {
         //scale and position the GUI element to draw it at the screen's top left corner  
         if (hydrogen>maxH * 4/5)
         {
-            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 45 * GUIsF.y, 0), Quaternion.identity, GUIsF);
+            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 85 * GUIsF.y, 0), Quaternion.identity, GUIsF);
             //these labels should all be same
             GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[4]);
         }else
         {
-            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 45 * GUIsF.y, 0), Quaternion.identity, GUIsF);
+            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 85 * GUIsF.y, 0), Quaternion.identity, GUIsF);
             //these labels should all be same
             GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[5]);
         }
         if (hydrogen>maxH *3/5)
         {
             //beneath the first bar
-            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 75 * GUIsF.y, 0), Quaternion.identity, GUIsF);
+            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 115 * GUIsF.y, 0), Quaternion.identity, GUIsF);
             //draw GUI on the bottom right  
             GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[3]);
         }else
         {
-            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 75 * GUIsF.y, 0), Quaternion.identity, GUIsF);
+            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 115 * GUIsF.y, 0), Quaternion.identity, GUIsF);
             //draw GUI on the bottom right  
             GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[5]);
         }
         if (hydrogen>maxH*2/5)
         {
             //beneath second bar
-            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 110 * GUIsF.y, 0), Quaternion.identity, GUIsF);
+            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 150 * GUIsF.y, 0), Quaternion.identity, GUIsF);
             GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[2]);
         }else
         {
-            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 110 * GUIsF.y, 0), Quaternion.identity, GUIsF);
+            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 150 * GUIsF.y, 0), Quaternion.identity, GUIsF);
             GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[5]);
         }
         if (hydrogen>maxH/5)
         {
             //beneath the third
-            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 145 * GUIsF.y, 0), Quaternion.identity, GUIsF);
+            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 185 * GUIsF.y, 0), Quaternion.identity, GUIsF);
             GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[1]);
         }else
         {
-            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 145 * GUIsF.y, 0), Quaternion.identity, GUIsF);
+            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 185 * GUIsF.y, 0), Quaternion.identity, GUIsF);
             GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[5]);
         }
         if (hydrogen > 0)
         {
             //beneath the fourth
-            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 180 * GUIsF.y, 0), Quaternion.identity, GUIsF);
+            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 220 * GUIsF.y, 0), Quaternion.identity, GUIsF);
             GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[0]);
         }else
         {
-            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 180 * GUIsF.y, 0), Quaternion.identity, GUIsF);
+            GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 220 * GUIsF.y, 0), Quaternion.identity, GUIsF);
             GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[5]);
         }
 
