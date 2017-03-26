@@ -64,6 +64,7 @@ GameObject:
   - component: {fileID: 114952740722133706}
   - component: {fileID: 82272874198566304}
   - component: {fileID: 164365300180630772}
+  - component: {fileID: 114045995886963582}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Player
@@ -335,6 +336,25 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d773342e724309c46ad44295d9c6f8c5, type: 3}
   - {fileID: 21300000, guid: dde45bd61b5944942b148a2a9b832c70, type: 3}
   guiSkin: {fileID: 11400000, guid: 3fd07bda7b705ca4e8ebbc2bee2361a0, type: 2}
+--- !u!114 &114045995886963582
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012183619648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7907f5fb17ba3f34c98c99bbc44b117b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guiSkin: {fileID: 11400000, guid: d63bf52e9140a954c84a99ea319a8d4c, type: 2}
+  planets: []
+  star: {fileID: 0}
+  station: {fileID: 0}
+  cameraPrefab: {fileID: 1307317079967160, guid: f1514ad33f9043e459ced057b74b839f,
+    type: 2}
+  cameraPrefabStar: {fileID: 1832516162370764, guid: 63b7787fef937aa4db4d7e9851c76d37,
+    type: 2}
 --- !u!114 &114580267758036948
 MonoBehaviour:
   m_ObjectHideFlags: 1

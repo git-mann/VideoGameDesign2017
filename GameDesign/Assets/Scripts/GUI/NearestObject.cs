@@ -113,8 +113,8 @@ public class NearestObject : MonoBehaviour {
             if (!onScreen)
             {
                 Vector3 finalPoint = mainCamera.ViewportToScreenPoint(new Vector3(Mathf.Clamp(screenPoint.x, 0.03751593f, 0.7533659f), 1 - Mathf.Clamp(screenPoint.y, 0.15313911f, 0.9256391f), 0));
-                station.transform.GetChild(1).eulerAngles = new Vector3(90, 90, 0 - station.transform.eulerAngles.z) ;
-                GUIContent content = new GUIContent("Station", station.transform.GetChild(1).GetComponent<Camera>().targetTexture, "Station");
+                station.transform.GetChild(3).eulerAngles = new Vector3(90, 90, 0 - station.transform.eulerAngles.z) ;
+                GUIContent content = new GUIContent("Station", station.transform.GetChild(3).GetComponent<Camera>().targetTexture, "Station");
                 GUI.Box(new Rect(finalPoint.x,finalPoint.y, 100, 100), content);
             }
         }
