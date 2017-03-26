@@ -1,0 +1,9 @@
+2
+Hanger
+Upgrade your ship
+500
+hanger.png
+Station Science
+Allow upgrades to the station
+350
+science.png

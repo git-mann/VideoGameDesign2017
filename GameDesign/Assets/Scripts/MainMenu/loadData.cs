@@ -11,6 +11,13 @@ public class loadData : MonoBehaviour {
     public int secX, secZ;
     public int seed;
     public List<double> molH;
+    public upgrade[] stationUpgrades;
+
+    List<int> costH = new List<int>();
+    List<string> upgrades = new List<string>();
+    List<string> description = new List<string>();
+    List<string> image = new List<string>();
+    station station;
     public GameObject sun;
 
     private void Awake()
@@ -29,6 +36,10 @@ public class loadData : MonoBehaviour {
     private void OnApplicationQuit()
     {
         this.Save();
+    }
+    private void Start()
+    {
+        this.initialize();
     }
     #region condense
     //this and expandMol are basically the inverse of each other
@@ -50,7 +61,7 @@ public class loadData : MonoBehaviour {
     }
     void condenseWODestroy()
     {
-        GameObject sun = GameObject.FindGameObjectWithTag("Sun");
+         sun = GameObject.FindGameObjectWithTag("Sun");
         molH.Add(sun.GetComponent<star>().molH);
         GameObject[] plans = GameObject.FindGameObjectsWithTag("Planet");
         if (plans.Length != 0)
@@ -84,7 +95,7 @@ public class loadData : MonoBehaviour {
     #endregion
     private void expandMol()
     {
-        GameObject sun = GameObject.FindGameObjectWithTag("Sun");
+         sun = GameObject.FindGameObjectWithTag("Sun");
         
         sun.GetComponent<star>().molH = molH[0];
         GameObject[] plans = GameObject.FindGameObjectsWithTag("Planet");
@@ -130,7 +141,7 @@ public class loadData : MonoBehaviour {
         string fileName = "X" + secX.ToString() + "Z" + secZ.ToString() + ".dat";
 
         BinaryFormatter bf = new BinaryFormatter();
-        if (!Directory.Exists(Application.persistentDataPath + sceneName + "/Sectors/"))
+        if (!Directory.Exists(Application.persistentDataPath +"/"+ sceneName + "/Sectors/"))
         {
             Directory.CreateDirectory(Application.persistentDataPath + "/" + sceneName + "/Sectors/");
         }
@@ -158,7 +169,7 @@ public class loadData : MonoBehaviour {
         Scene scene = new Scene();
         scene.XSec = secX;
         scene.zSec = secZ;
-        if (!Directory.Exists(Application.persistentDataPath + sceneName + "/"))
+        if (!Directory.Exists(Application.persistentDataPath +"/" + sceneName + "/"))
         {
             Directory.CreateDirectory(Application.persistentDataPath + "/" + sceneName + "/");
         }
@@ -171,7 +182,7 @@ public class loadData : MonoBehaviour {
         Controller control = GameObject.FindGameObjectWithTag("Player").GetComponent<Controller>();
         BinaryFormatter bf = new BinaryFormatter();
         Ship ship = new Ship(control);
-        if (!Directory.Exists(Application.persistentDataPath + sceneName + "/"))
+        if (!Directory.Exists(Application.persistentDataPath + "/"+ sceneName + "/"))
         {
             Directory.CreateDirectory(Application.persistentDataPath + "/" + sceneName + "/");
         }
@@ -208,7 +219,7 @@ public class loadData : MonoBehaviour {
     {
         if (File.Exists(Application.persistentDataPath + "/resume.dat")) { 
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream input = File.Open(Application.persistentDataPath + "/resume.dat", FileMode.OpenOrCreate);
+        FileStream input = File.Open(Application.persistentDataPath + "/resume.dat", FileMode.Open);
         Resume sector = (Resume)bf.Deserialize(input);
         this.sceneName = sector.SceneName;
         return true;
@@ -238,14 +249,28 @@ public class loadData : MonoBehaviour {
     }
     private void loadBase(SceneLoader scene)
     {
-        station station =scene.loadBase().GetComponent<station>();
+        station = scene.loadBase().GetComponent<station>();
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream input = File.Open(Application.persistentDataPath + "/" + sceneName + "/Sectors/base.dat", FileMode.OpenOrCreate);
         Base sector = (Base)bf.Deserialize(input);
         station.molH = sector.molH;
         station.upgradesUsed = sector.upgrades;
+        station.upgrades = sector.upgradeVals;
         expandMol();
+    }
+    public void loadUpgrades()
+    {
+        station = GameObject.FindGameObjectWithTag("Base").GetComponent<station>();
+        if (station.upgradesUsed.Contains(0))
+        {
+            GameObject.Find("pause").GetComponent<menu>().setHangerActive();
+        }
+        if (station.upgradesUsed.Contains(1))
+        {
+            GameObject.Find("pause").GetComponent<menu>().setStationActive();
+
+        }
     }
     public void load()
     {
@@ -302,7 +327,35 @@ public class loadData : MonoBehaviour {
         loadShip();
     }
 
-
+    public void setSun()
+    {
+        sun = GameObject.FindGameObjectWithTag("Sun");
+        Debug.Log("Find sun");
+    }
+    void initialize()
+    {
+        StreamReader stream = new StreamReader(Directory.GetCurrentDirectory() + @"\Assets\Upgrades\Station\Station.txt");
+        Debug.Log(Directory.GetCurrentDirectory());
+        int amt = Int32.Parse(stream.ReadLine());
+        int i = 0;
+        while(i++ < amt)
+        {
+            upgrades.Add(stream.ReadLine());
+            description.Add(stream.ReadLine());
+            costH.Add(Int32.Parse(stream.ReadLine()));
+            image.Add(stream.ReadLine());
+        }
+        i = 0;
+        stationUpgrades = new upgrade[amt];
+        for(int a = 0; a < amt; a++)
+        {
+            stationUpgrades[a] = new upgrade();
+            stationUpgrades[a].cost = costH[a];
+            stationUpgrades[a].description = description[a];
+            stationUpgrades[a].Img = image[a];
+            stationUpgrades[a].upgradeName = upgrades[a];
+        }
+    } 
     #endregion
 }
 [Serializable]
@@ -323,8 +376,10 @@ class Base
 {
     public List<int> upgrades;
     public double molH;
+    public int[] upgradeVals;
     public Base(station stat)
     {
+        this.upgradeVals = stat.upgrades;
         this.upgrades = stat.upgradesUsed;
         this.molH = stat.molH;
     }
@@ -339,7 +394,7 @@ class Scene
 class Ship
 {
     public double molH;
-    public List<int> upgrades;
+    public int[] upgrades;
     public float posX, posZ;
     public Ship(Controller control)
     {
@@ -353,4 +408,18 @@ class Ship
 class Resume
 {
     public string SceneName;
+}
+public class upgrade
+{
+    public string upgradeName;
+    public int cost;
+    public string description;
+    private string img;
+
+    public string Img
+    {
+        get { return img; }
+        set { img = @"file://" + Directory.GetCurrentDirectory() + @"\Assets\Upgrades\Station\Images\"+ value; }
+    }
+
 }
