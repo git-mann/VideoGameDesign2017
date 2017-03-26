@@ -26,12 +26,12 @@ public class Switcher : MonoBehaviour {
     public void resumeScene()
     {
         loadData.data.sceneName = "resume";
-        SceneManager.LoadScene("RandomBasedOnSeed");
+        SceneManager.LoadScene("GUIRandom");
     }
     public void newScene()
     {
         loadData.data.sceneName = "new";
-        SceneManager.LoadScene("RandomBasedOnSeed");
+        SceneManager.LoadScene("GUIRandom");
     }
     public void openSettings()
     {
@@ -126,7 +126,7 @@ public class Switcher : MonoBehaviour {
         {
             Debug.Log(numSel);
             loadData.data.sceneName = hello[numSel];
-            SceneManager.LoadScene("RandomBasedOnSeed");
+            SceneManager.LoadScene("GUIRandom");
         }
         Debug.Log(numSel);
     }
