@@ -86,9 +86,6 @@
     <Compile Include="Assets\Scripts\Celestial Bodies\CelestialBody.cs" />
     <Compile Include="Assets\Scripts\Celestial Bodies\planet.cs" />
     <Compile Include="Assets\Scripts\Celestial Bodies\star.cs" />
-    <Compile Include="Assets\Scripts\GUI\GUIStats.cs" />
-    <Compile Include="Assets\Scripts\GUI\NearestObject.cs" />
-    <Compile Include="Assets\Scripts\Interfaces\IEnum.cs" />
     <Compile Include="Assets\Scripts\MainMenu\UI\Switcher.cs" />
     <Compile Include="Assets\Scripts\MainMenu\loadData.cs" />
     <Compile Include="Assets\Scripts\MainMenu\orbit.cs" />
@@ -97,7 +94,6 @@
     <Compile Include="Assets\Scripts\Ship\Controller.cs" />
     <Compile Include="Assets\Scripts\Ship\onCollision.cs" />
     <Compile Include="Assets\Scripts\station\station.cs" />
-    <Compile Include="Assets\Scripts\station\upgradeMenu\menu.cs" />
     <Compile Include="Assets\StarNestSkybox\Scripts\CameraScroll.cs" />
     <Compile Include="Assets\StarNestSkybox\Scripts\SkyboxSwitcher.cs" />
   </ItemGroup>
@@ -114,7 +110,6 @@
     <None Include="Assets\StarNestSkybox\StarNestSkyboxReadme.txt" />
     <None Include="Assets\StarNestSkybox\StarNestSkybox_HSV.shader" />
     <None Include="Assets\StarNestSkybox\hsv.cginc" />
-    <None Include="Assets\Upgrades\Station\station.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -8,7 +8,6 @@ TagManager:
   - Sun
   - Base
   - Menu
-  - Hanger Menu
   layers:
   - Default
   - TransparentFX

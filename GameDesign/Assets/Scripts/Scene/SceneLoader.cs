@@ -7,9 +7,7 @@ public class SceneLoader : MonoBehaviour {
 	public string nameOfSystem;
 	public GameObject planet, star, hydrogen, station;
     public Material psMaterial;
-
-
-
+    
     // Use this for initialization
     void Start () {
         
@@ -18,7 +16,6 @@ public class SceneLoader : MonoBehaviour {
             loadData.data.secX = 0;
             loadData.data.secZ = 0;
             loadBase();
-            loadData.data.setSun();
         }else if(loadData.data.sceneName.Equals("resume"))
         {
             if(!loadData.data.loadResume())

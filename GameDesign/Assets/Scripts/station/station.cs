@@ -5,20 +5,10 @@ using UnityEngine;
 public class station : MonoBehaviour {
     public double molH = 0;
     double maxH = 500;
-    double loss = .05;
-    public GameObject hanger, science;
-
-    public int[] upgrades ;
-
     public List<int> upgradesUsed;
     SoundOscillator so;
-    private void Awake()
-    {
-        upgrades = new int[2];
-    }
     // Use this for initialization
     void Start () {
-        
         so = this.GetComponent<SoundOscillator>();
         so.frequency = 2525f;
         InvokeRepeating("beep", 0f, 5f);
@@ -45,7 +35,7 @@ public class station : MonoBehaviour {
 
     public void transfer()
     {
-        molH += (.1 - loss);
+        molH += .1;
     }
     public bool checkSpace()
     {
@@ -56,10 +46,5 @@ public class station : MonoBehaviour {
         {
             return false;
         }
-    }
-    public void calculateValues()
-    {
-        loss =.05 -( upgrades[(int)IEnum.StatUpgrades.loss] * (.05 / 4));
-        maxH = 500 + (Mathf.Pow(upgrades[(int)IEnum.StatUpgrades.maxH], 2f) * 500);
     }
 }
