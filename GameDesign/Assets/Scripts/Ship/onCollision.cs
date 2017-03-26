@@ -66,15 +66,18 @@ public class onCollision : MonoBehaviour {
                 thing.GetComponent<ParticleSystem>().Play();
             }
             
-        } else if (!empty&&transferring && Input.GetAxis("Vacuum")!=0)
+        } else if (!empty&&transferring && station)
         {
-            if (station)
+            if (Input.GetAxis("Vacuum") != 0)
             {
                 if (station.checkSpace())
                 {
                     con.transfer();
                     station.transfer();
                 }
+            }else if (Input.GetKeyDown(KeyCode.E))
+            {
+                menu.activated = true;
             }
         } else
         {
