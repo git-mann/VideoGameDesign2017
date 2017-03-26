@@ -39,15 +39,14 @@ public class SceneLoader : MonoBehaviour {
 	
 	}
 
-	public void loadScene (int providedSeed)
+	public void loadScene (int seed)
 	{
-        
 		int size, yOffSet, radius, orbitSpeed = 0;
-        seed = providedSeed;
-		intializeRandom (providedSeed);
+
+		intializeRandom (seed);
 
 		distanceFromSol = randomIntFromSeed(1, 1000);
-		nameOfSystem = "BDMSC-"+ providedSeed;
+		nameOfSystem = "DMGC-"+seed;
 		int numberOfBodies = randomIntFromSeed (1, 5);
 
 		size = randomIntFromSeed(100, 1000);
@@ -90,16 +89,12 @@ public class SceneLoader : MonoBehaviour {
 			position.y = 0 + yOffSet;
 			spawnedPlanet.transform.position = position;
 		}
-
-        GameObject.FindWithTag("Player").GetComponent<NearestObject>().loadPlanets();
 	}
     public GameObject loadBase()
     {
         
         spawnSun();
-        distanceFromSol = 0;
-        seed = 0;
-        nameOfSystem = "BDMSC-" + seed;
+
         GameObject spawnedBase = GameObject.Instantiate(station);
         return spawnedBase;
     }
@@ -125,7 +120,7 @@ public class SceneLoader : MonoBehaviour {
         ParticleSystem.ShapeModule psShape = ps.shape;
         ParticleSystem.CollisionModule psCollision = ps.collision;
         psMain.duration = 2f;
-        psMain.startSize = .02f;
+        psMain.startSize = .01f;
         psMain.startSpeed = 31f;
         psMain.prewarm = true;
         spawnedSunPS.GetComponent<ParticleSystemRenderer>().material = psMaterial;
