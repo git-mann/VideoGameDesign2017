@@ -56,3 +56,5 @@ Temporary Items
 sysinfo.txt
 *.pidb.meta
 GameDesign/.vs/GameDesign/v14/.suo
+GameDesign/Assets/StarNestSkybox/Materials/Resources/Normal_GreyClamp 1.mat
+GameDesign/GameDesign.Editor.Plugins.csproj
