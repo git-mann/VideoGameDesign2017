@@ -46,7 +46,8 @@ public class loadData : MonoBehaviour {
     //Condense mol will coppy all of the hydrogen to this object for saving while expand mol coppies them all to planets after loading
     private void condenseMol()
     {
-        GameObject sun = GameObject.FindGameObjectWithTag("Sun");
+         sun = GameObject.Find("Star");
+        Debug.Log(sun);
         molH.Add(sun.GetComponent<star>().molH);
         GameObject[] plans = GameObject.FindGameObjectsWithTag("Planet");
         GameObject.Destroy(sun);
@@ -59,6 +60,7 @@ public class loadData : MonoBehaviour {
             }
         }
     }
+
     void condenseWODestroy()
     {
          sun = GameObject.FindGameObjectWithTag("Sun");
@@ -113,9 +115,8 @@ public class loadData : MonoBehaviour {
    public void saveSector()
     {
         condenseMol();
-
-        condenseBase();
         
+        condenseBase();
         SceneLoader scene = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
 
         this.seed = scene.seed;
