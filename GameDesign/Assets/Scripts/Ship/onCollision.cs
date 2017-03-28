@@ -81,7 +81,7 @@ public class onCollision : MonoBehaviour {
             }
         } else
         {
-            if (thing.tag == "Sun")
+            if (thing.tag.Equals("Sun"))
             {
                 thing.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Pause();
               //  thing.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Clear();

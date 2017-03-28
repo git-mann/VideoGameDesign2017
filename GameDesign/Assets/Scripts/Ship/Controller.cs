@@ -156,33 +156,36 @@ public class Controller : MonoBehaviour {
         {
             loadData.data.saveSector();
             loadData.data.secX++;
-            loadData.data.load();
             transform.position = new Vector3((0 - transform.position.x) + 50, transform.position.y, transform.position.z);
+            loadData.data.load();
         }else if (transform.position.z < 7000 && transform.position.z > -7000 && transform.position.x <= -7000)
         {
             loadData.data.saveSector();
 
             loadData.data.secX--;
+            transform.position = new Vector3((0 - transform.position.x) - 50, transform.position.y, transform.position.z);
             loadData.data.load();
 
-            transform.position = new Vector3((0 - transform.position.x) - 50, transform.position.y, transform.position.z);
+            
         }
         else if (transform.position.x < 7000 && transform.position.x > -7000 && transform.position.z >= 7000)
         {
             loadData.data.saveSector();
 
             loadData.data.secZ++;
+            transform.position = new Vector3(transform.position.x, transform.position.y, (0 - transform.position.z) + 50);
             loadData.data.load();
 
-            transform.position = new Vector3(transform.position.x, transform.position.y, (0-transform.position.z) + 50);
+            
         }else if (transform.position.x < 7000 && transform.position.x > -7000 && transform.position.z <= -7000)
         {
             loadData.data.saveSector();
 
             loadData.data.secZ--;
+            transform.position = new Vector3(transform.position.x, transform.position.y, (0 - transform.position.z) - 50);
             loadData.data.load();
 
-            transform.position = new Vector3(transform.position.x, transform.position.y, (0-transform.position.z)-50);
+            
         }
         else if (transform.position.z <=-7000 && transform.position.x <= -7000)
         {
@@ -190,9 +193,10 @@ public class Controller : MonoBehaviour {
 
             loadData.data.secX--;
             loadData.data.secZ--;
+            transform.position = new Vector3((0 - transform.position.x) - 50, transform.position.y, (0 - transform.position.z) - 50);
             loadData.data.load();
 
-            transform.position = new Vector3((0 - transform.position.x) - 50, transform.position.y, (0-transform.position.z) -50);
+            
         }
         else if (transform.position.z >= 7000 && transform.position.x >= 7000)
         {
@@ -200,9 +204,10 @@ public class Controller : MonoBehaviour {
 
             loadData.data.secX++;
             loadData.data.secZ++;
+            transform.position = new Vector3((0 - transform.position.x) + 50, transform.position.y, (0 - transform.position.z) + 50);
             loadData.data.load();
 
-            transform.position = new Vector3((0 - transform.position.x) + 50, transform.position.y, (0 - transform.position.z) + 50);
+           
         }
         else if (transform.position.z >= 7000 && transform.position.x <= -7000)
         {
@@ -210,9 +215,10 @@ public class Controller : MonoBehaviour {
 
             loadData.data.secX--;
             loadData.data.secZ++;
+            transform.position = new Vector3((0 - transform.position.x) - 50, transform.position.y, (0 - transform.position.z) + 50);
+
             loadData.data.load();
 
-            transform.position = new Vector3((0 - transform.position.x) - 50, transform.position.y, (0 - transform.position.z) + 50);
         }
         else if (transform.position.z <= -7000 && transform.position.x >= 7000)
         {
@@ -220,9 +226,10 @@ public class Controller : MonoBehaviour {
 
             loadData.data.secX++;
             loadData.data.secZ--;
+            transform.position = new Vector3((0 - transform.position.x) + 50, transform.position.y, (0 - transform.position.z) - 50);
             loadData.data.load();
 
-            transform.position = new Vector3((0 - transform.position.x) + 50, transform.position.y, (0 - transform.position.z) - 50);
+            
         }
         #endregion
     }
@@ -253,9 +260,11 @@ public class Controller : MonoBehaviour {
     public void calculateValues()
     {
         regFuel = originalFuel - (upgrades[(int)IEnum.ShipUpgrades.effeciency] * .015f);
-        boostFuel = originalBoost - ( upgrades[(int)IEnum.ShipUpgrades.effeciency] * .015f);
+        boostFuel = originalBoost - ( upgrades[(int)IEnum.ShipUpgrades.effeciency] * .0015f);
         shipThrust =(originalThrust + ((float)Math.Pow(upgrades[(int)IEnum.ShipUpgrades.speed], 2) * 45));
         maxH = 100 + (Math.Pow(upgrades[(int)IEnum.ShipUpgrades.capacity], 2) * 50);
-
+        Debug.Log(boostFuel);
+        Debug.Log(regFuel);
+        Debug.Log(maxH);
     }
 }
