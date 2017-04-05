@@ -5,6 +5,7 @@ using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
+
 public class loadData : MonoBehaviour {
     public static loadData data;
     public string sceneName = "";

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class SceneLoader : MonoBehaviour {
+public class SceneLoader : NetworkBehaviour {
 
 	public int distanceFromSol, seed;
 	public string nameOfSystem;
@@ -89,6 +90,7 @@ public class SceneLoader : MonoBehaviour {
 			position.z = position.y;
 			position.y = 0 + yOffSet;
 			spawnedPlanet.transform.position = position;
+            NetworkServer.Spawn(spawnedPlanet);
 		}
         GameObject.FindWithTag("Player").GetComponent<NearestObject>().loadPlanets();
         NearestObject.activated = true;
@@ -101,6 +103,7 @@ public class SceneLoader : MonoBehaviour {
         seed = 0;
         nameOfSystem = "BDMSC-" + seed;
         GameObject spawnedBase = GameObject.Instantiate(station);
+        NetworkServer.Spawn(spawnedBase);
         return spawnedBase;
     }
 
@@ -144,6 +147,7 @@ public class SceneLoader : MonoBehaviour {
         GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
         camera.GetComponent<Skybox>().material.SetInt("_Formuparam", randomIntFromSeed(450, 550));
         loadData.data.sun = spawnedSun;
+        NetworkServer.Spawn(spawnedSun);
     }
     private void intializeRandom(int seed)
 	{

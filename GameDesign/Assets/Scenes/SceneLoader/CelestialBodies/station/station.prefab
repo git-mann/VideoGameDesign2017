@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 135587765962715900}
   - component: {fileID: 82032429726146982}
   - component: {fileID: 114098251881730466}
+  - component: {fileID: 114278584292460640}
+  - component: {fileID: 114581018836898620}
   m_Layer: 0
   m_Name: station
   m_TagString: Base
@@ -231,6 +233,38 @@ MonoBehaviour:
   volume: 0.1
   frequencies: []
   currentFrequency: 0
+--- !u!114 &114278584292460640
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1154809770713526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 188
+    i1: 70
+    i2: 10
+    i3: 251
+    i4: 137
+    i5: 25
+    i6: 12
+    i7: 20
+    i8: 138
+    i9: 8
+    i10: 219
+    i11: 150
+    i12: 231
+    i13: 210
+    i14: 44
+    i15: 84
+  m_ServerOnly: 1
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114446419273697318
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -247,6 +281,26 @@ MonoBehaviour:
   science: {fileID: 1592064176533258}
   upgrades: 
   upgradesUsed: 
+--- !u!114 &114581018836898620
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1154809770713526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!135 &135587765962715900
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
-
-public class Controller : MonoBehaviour {
+using UnityEngine.Networking;
+public class Controller : NetworkBehaviour {
 	public double maxSpeed, hydrogen, fuelPerTime;
      double maxH = 100;
 	public float  forceAmount, currentSpeed, thrust, turn, shipRotationSpeed, shipThrust, boostThrust = 1.5f;
@@ -113,6 +113,8 @@ public class Controller : MonoBehaviour {
     // Update is called once per frame
     void Update ()
 	{
+        if (!isLocalPlayer)
+            return;
 		rb.mass = 1 + (float)(hydrogen/500);
 		if (hydrogen > 0) {
 			allowMovement = true;
