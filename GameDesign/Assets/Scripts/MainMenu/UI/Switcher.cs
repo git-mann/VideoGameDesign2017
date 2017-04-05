@@ -105,7 +105,7 @@ public class Switcher : MonoBehaviour {
             GUI.Label(new Rect(Screen.width / 2 - 110, Screen.height / 2 , 220, 20), "Music Volume");
             GUI.Label(new Rect(Screen.width / 2 - 110, Screen.height / 2 + 40, 220, 20), "Sounds Volume");
             masterVolume = Mathf.Round(GUI.HorizontalSlider(new Rect(Screen.width / 2 - 110, Screen.height / 2 - 20, 220, 20), masterVolume, -80f, 20f));
-            musicVolume = Mathf.Round(GUI.HorizontalSlider(new Rect(Screen.width / 2 - 110, Screen.height / 2 + 20, 220, 20), musicVolume, -80f, 20f));
+            musicVolume = Mathf.Round(GUI.HorizontalSlider(new Rect(Screen.width / 2 - 110, Screen.height / 2 + 20, 220, 20), musicVolume, -80f, 0f));
             soundsVolume = Mathf.Round(GUI.HorizontalSlider(new Rect(Screen.width / 2 - 110, Screen.height / 2 + 60, 220, 20), soundsVolume, -80f, 20f));
 
             mixer.SetFloat("MasterVolume", masterVolume);

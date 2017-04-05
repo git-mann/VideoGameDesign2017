@@ -4,6 +4,7 @@ using System.Collections;
 public class star : CelestialBody {
     MeshRenderer rend;
     public Transform ParticleSystemObject;
+    public double startingMolH;
 	public override void Start ()
 	{
         base.Start();
@@ -25,7 +26,8 @@ public class star : CelestialBody {
 
 		percentH = 0.9;
 		molH = percentH * transform.localScale.x * starClass * 10;
-
+        startingMolH = molH;
+       
 		Light light = transform.gameObject.AddComponent<Light>();
 		light.type= LightType.Point;
 		light.range = starClass * 1000;
@@ -39,8 +41,12 @@ public class star : CelestialBody {
     {
         if(molH < 20)
         {
-            rend.material.color = Color.HSVToRGB(24, 100, 100);
+            Debug.Log("Out");
+
+            rend = transform.gameObject.GetComponent<MeshRenderer>();
+            rend.material = mats[7];
         }
+        Debug.Log(molH);
         return base.reduceHydrogen();
     }
 }

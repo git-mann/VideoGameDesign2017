@@ -216,5 +216,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 61249cc9fe03fcf4292e9c846591d84b, type: 2}
   - {fileID: 2100000, guid: 86829f10bf0473b49b9e74d466656937, type: 2}
   - {fileID: 2100000, guid: 6824bdad67c62d64f943e10b3cefeba1, type: 2}
+  - {fileID: 2100000, guid: 3f47c167379489b4cabf611427ae8b0d, type: 2}
   ship: {fileID: 0}
   ParticleSystemObject: {fileID: 0}
+  startingMolH: 0

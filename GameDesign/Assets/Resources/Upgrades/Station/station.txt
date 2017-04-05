@@ -1,9 +1,9 @@
-2
 Hanger
 Upgrade your ship
-500
-hanger.png
+375
+hanger
 Station Science
 Allow upgrades to the station
-350
-science.png
+260
+science
+&

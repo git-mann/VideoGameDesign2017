@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 692e79e86b9869c4db95c1b9fe072bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  molH: 0
+  molH: 1500
   hanger: {fileID: 1469594137112498}
   science: {fileID: 1592064176533258}
   upgrades: 

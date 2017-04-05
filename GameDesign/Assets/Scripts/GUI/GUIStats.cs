@@ -31,7 +31,15 @@ public class GUIStats : MonoBehaviour {
     {
         system.text = "System:\nBDMSC - " + sceneLoader.seed;
         distance.text = "Distance from Sol: " + sceneLoader.seed;
-        station.text = "Hydrogen of\nStation: " + Mathf.Round((float)stationScript.molH * 10) / 10;
-        hydrogen.text = "(" + Mathf.Round((float)ship.hydrogen * 10) / 10 + ")";
+        try
+        {
+            station.text = "Hydrogen of\nStation: " + Mathf.Round((float)stationScript.molH * 1) / 1;
+        }catch(System.Exception e)
+        {
+            stationScript = GameObject.FindGameObjectWithTag("Base").GetComponent<station>();
+
+        }
+        hydrogen.text = "(" + Mathf.Round((float)ship.hydrogen * 1) / 1 + ")";
     }
+
 }

@@ -52,9 +52,12 @@ public class menu : MonoBehaviour {
             {
                 activated = false;
                 subMenu = true;
-                WWW www = new WWW(loadData.data.stationUpgrades[numSel].Img);
-                www.LoadImageIntoTexture(texTemp);
-                description = "select";
+
+                texTemp = Resources.Load(loadData.data.stationUpgrades[numSel].Img) as Texture2D;
+                Debug.Log(Resources.Load(loadData.data.stationUpgrades[numSel].Img));
+                Debug.Log(texTemp);
+                Debug.Log(loadData.data.stationUpgrades[numSel].Img);
+                description = "Build";
             }
             if (GUI.Button(new Rect(170 , 300, 90, 50), "Cancel"))
             {

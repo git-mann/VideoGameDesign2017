@@ -44,56 +44,65 @@ public class onCollision : MonoBehaviour {
     }
     private void Update()
     {
-        thing = loadData.data.sun;
+
         if(con.getHydrogen()< con.getMaxHydrogen())
         {
             spaceLeft = true;
         }
-        if (hLeft && spaceLeft && draining && Input.GetKey(KeyCode.Space))
+        if (thing)
         {
-            hLeft = plan.reduceHydrogen();
-            spaceLeft = con.vacuum();
-            if(thing.tag == "Sun")
+            if (hLeft && spaceLeft && draining && Input.GetKey(KeyCode.Space))
             {
-                Quaternion targetRotation = Quaternion.LookRotation(ship.transform.GetChild(2).transform.position -  thing.transform.GetChild(0).transform.position);
-
-                // Smoothly rotate towards the target point.
-                thing.transform.GetChild(0).transform.rotation = Quaternion.Slerp(thing.transform.GetChild(0).transform.rotation,  targetRotation, rotationSpeed * Time.deltaTime);
-                thing.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Play();
-            }
-            else
-            {
-                thing.GetComponent<ParticleSystem>().Play();
-            }
-            
-        } else if (!empty&&transferring && station)
-        {
-            if (Input.GetAxis("Vacuum") != 0)
-            {
-                if (station.checkSpace())
+                hLeft = plan.reduceHydrogen();
+                spaceLeft = con.vacuum();
+                if (thing.tag == "Sun")
                 {
-                    con.transfer();
-                    station.transfer();
+                    Quaternion targetRotation = Quaternion.LookRotation(ship.transform.GetChild(2).transform.position - thing.transform.GetChild(0).transform.position);
+
+                    // Smoothly rotate towards the target point.
+                    thing.transform.GetChild(0).transform.rotation = Quaternion.Slerp(thing.transform.GetChild(0).transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                    thing.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Play();
                 }
-            }else if (Input.GetKeyDown(KeyCode.E))
-            {
-                menu.activated = true;
+                else
+                {
+                    thing.GetComponent<ParticleSystem>().Play();
+                }
+
             }
-        } else
-        {
-            if (thing.tag.Equals("Sun"))
+            else if (transferring && station)
             {
-                thing.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Pause();
-              //  thing.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Clear();
+                if (!empty && Input.GetAxis("Vacuum") != 0)
+                {
+                    if (station.checkSpace())
+                    {
+                        con.transfer();
+                        station.transfer();
+                    }
+                }
+                else
+                {
+                    if (Input.GetKeyDown(KeyCode.E))
+
+                        menu.activated = true;
+                }
             }
+
             else
             {
-                thing.GetComponent<ParticleSystem>().Pause();
-                thing.GetComponent<ParticleSystem>().Clear();
+                if (thing.tag == "Sun")
+                {
+                    thing.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Pause();
+                    //  thing.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Clear();
+                }
+                else
+                {
+                    thing.GetComponent<ParticleSystem>().Pause();
+                    thing.GetComponent<ParticleSystem>().Clear();
 
+                }
             }
         }
-        if(con.getHydrogen() <= con.getMaxHydrogen() / 10)
+        if(con.getHydrogen() <= 10)
         {
             empty = true;
         }

@@ -59,18 +59,19 @@ public class loadData : MonoBehaviour {
                 GameObject.Destroy(plans[i]);
             }
         }
+        
     }
 
     void condenseWODestroy()
     {
          sun = GameObject.FindGameObjectWithTag("Sun");
         molH.Add(sun.GetComponent<star>().molH);
-        GameObject[] plans = GameObject.FindGameObjectsWithTag("Planet");
-        if (plans.Length != 0)
+        GameObject[] planets = GameObject.FindGameObjectsWithTag("Planet");
+        if (planets.Length != 0)
         {
-            for (int i = 0; i < plans.Length; i++)
+            for (int i = 0; i < planets.Length; i++)
             {
-                molH.Add(plans[i].GetComponent<planet>().molH);
+                molH.Add(planets[i].GetComponent<planet>().molH);
             }
         }
         else
@@ -95,18 +96,19 @@ public class loadData : MonoBehaviour {
         }
     }
     #endregion
-    private void expandMol()
+    public void expandMol()
     {
          sun = GameObject.FindGameObjectWithTag("Sun");
         
         sun.GetComponent<star>().molH = molH[0];
-        GameObject[] plans = GameObject.FindGameObjectsWithTag("Planet");
+        GameObject[] planetss = GameObject.FindGameObjectsWithTag("Planet");
         this.molH.RemoveAt(0);
-        if (plans.Length != 0)
+        if ( planetss.Length > 0)
         {
-            for (int i = 1; i < plans.Length; i++)
+            Debug.Log(planetss.Length);
+            for (int i = 1; i < planetss.Length; i++)
             {
-                plans[i].GetComponent<planet>().molH = molH[i];
+                planetss[i].GetComponent<planet>().molH = molH[i];
             }
         }
     }
@@ -258,7 +260,6 @@ public class loadData : MonoBehaviour {
         station.molH = sector.molH;
         station.upgradesUsed = sector.upgrades;
         station.upgrades = sector.upgradeVals;
-        expandMol();
     }
     public void loadUpgrades()
     {
@@ -292,12 +293,14 @@ public class loadData : MonoBehaviour {
                 this.seed = sector.seed;
                 this.molH = sector.molH;
                 scene.loadScene(seed);
-                expandMol();
+                StartCoroutine(loadAfterFrame());
             }
             else
             {
                 this.molH = sector.molH;
                 loadBase(scene);
+                StartCoroutine(loadAfterFrame());
+
             }
         }
         else
@@ -305,7 +308,11 @@ public class loadData : MonoBehaviour {
             scene.generateWithoutSeed();
         }
     }
-
+    IEnumerator loadAfterFrame()
+    {
+        yield return 0;
+        expandMol();
+    }
     public bool loadResume()
     {
         if (!File.Exists(Application.persistentDataPath + "/resume.dat"))
@@ -335,18 +342,48 @@ public class loadData : MonoBehaviour {
     }
     void initialize()
     {
-        StreamReader stream = new StreamReader(Directory.GetCurrentDirectory() + @"\Assets\Upgrades\Station\Station.txt");
-        Debug.Log(Directory.GetCurrentDirectory());
-        int amt = Int32.Parse(stream.ReadLine());
-        int i = 0;
-        while(i++ < amt)
+        string temp = "";
+        int count = 1;
+        TextAsset text = Resources.Load<TextAsset>("Upgrades/Station/station"); 
+        Debug.Log(text.text);
+        for(int j = 0; j < text.text.Length; j++)
         {
-            upgrades.Add(stream.ReadLine());
-            description.Add(stream.ReadLine());
-            costH.Add(Int32.Parse(stream.ReadLine()));
-            image.Add(stream.ReadLine());
+            if (text.text[j].Equals('\r'))
+            {
+                switch (count)
+                {
+                    case 1:
+                        upgrades.Add(temp);
+                        count++;
+                        break;
+                    case 2:
+                        description.Add(temp);
+                        count++;
+                        break;
+                    case 3:
+                        costH.Add(Int32.Parse(temp));
+                        count++;
+                        break;
+                    case 4:
+                        image.Add(temp);
+                        count = 1;
+                        break;    
+                }
+                
+                temp = "";
+                
+                j++;
+                
+            }
+            else if (text.text[j].Equals('&'))
+            {
+                break;
+            }else
+            {
+                temp += text.text[j];
+            }
         }
-        i = 0;
+        int amt = upgrades.ToArray().Length;
         stationUpgrades = new upgrade[amt];
         for(int a = 0; a < amt; a++)
         {
@@ -420,7 +457,7 @@ public class upgrade
     public string Img
     {
         get { return img; }
-        set { img = @"file://" + Directory.GetCurrentDirectory() + @"\Assets\Upgrades\Station\Images\"+ value; }
+        set { img = "Upgrades/Station/Images/"+ value; }
     }
 
 }

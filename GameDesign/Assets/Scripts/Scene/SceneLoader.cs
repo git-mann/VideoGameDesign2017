@@ -41,6 +41,7 @@ public class SceneLoader : MonoBehaviour {
 
 	public void loadScene (int providedSeed)
 	{
+        NearestObject.activated = false;
 		int size, yOffSet, radius, orbitSpeed = 0;
         seed = providedSeed;
         intializeRandom (providedSeed);
@@ -90,6 +91,7 @@ public class SceneLoader : MonoBehaviour {
 			spawnedPlanet.transform.position = position;
 		}
         GameObject.FindWithTag("Player").GetComponent<NearestObject>().loadPlanets();
+        NearestObject.activated = true;
     }
     public GameObject loadBase()
     {
@@ -123,7 +125,7 @@ public class SceneLoader : MonoBehaviour {
         ParticleSystem.ShapeModule psShape = ps.shape;
         ParticleSystem.CollisionModule psCollision = ps.collision;
         psMain.duration = 2f;
-        psMain.startSize = .02f;
+        psMain.startSize = .015f;
         psMain.startSpeed = 31f;
         psMain.prewarm = true;
         spawnedSunPS.GetComponent<ParticleSystemRenderer>().material = psMaterial;
