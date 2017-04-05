@@ -12,5 +12,5 @@ abstract public class IEnum
     {
         speed, capacity, effeciency
     }
-    public static readonly int[] Costs = { 100, 250, 625, 1563 };
+    public static readonly int[] Costs = { 100, 188, 479, 1000 };
 }

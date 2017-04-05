@@ -11,6 +11,7 @@ public class Controller : MonoBehaviour {
 	public Rigidbody rb;
     public int[] upgrades ;
     public Sprite[] textures;
+    public static double drainRate;
     
     private float boostFuel, regFuel, sWidth, guiRatio, originalFuel, originalBoost, originalThrust;
     private bool full, high, mid, low, empty;
@@ -21,7 +22,8 @@ public class Controller : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        originalThrust = thrust = 90;
+        drainRate = .1;
+        originalThrust = 90;
 		rb = transform.GetComponent<Rigidbody>();
         //calculating the fuel usage. it should come out to .09/sec
         originalFuel = regFuel = shipThrust / 100000;
@@ -47,7 +49,7 @@ public class Controller : MonoBehaviour {
     void OnGUI()
     {
         //scale and position the GUI element to draw it at the screen's top left corner  
-        if (hydrogen > 80)
+        if (hydrogen > maxH * 4/5)
         {
             GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 85 * GUIsF.y, 0), Quaternion.identity, GUIsF);
             //these labels should all be same
@@ -59,7 +61,7 @@ public class Controller : MonoBehaviour {
             //these labels should all be same
             GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[5]);
         }
-        if (hydrogen > 60)
+        if (hydrogen > maxH * 3/5)
         {
             //beneath the first bar
             GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 115 * GUIsF.y, 0), Quaternion.identity, GUIsF);
@@ -72,7 +74,7 @@ public class Controller : MonoBehaviour {
             //draw GUI on the bottom right  
             GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[5]);
         }
-        if (hydrogen > 40)
+        if (hydrogen > maxH * 2/5)
         {
             //beneath second bar
             GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 150 * GUIsF.y, 0), Quaternion.identity, GUIsF);
@@ -83,7 +85,7 @@ public class Controller : MonoBehaviour {
             GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 150 * GUIsF.y, 0), Quaternion.identity, GUIsF);
             GUI.Label(new Rect(0, 0, 100, 20), "", guiSkin.customStyles[5]);
         }
-        if (hydrogen > 20)
+        if (hydrogen > maxH/5)
         {
             //beneath the third
             GUI.matrix = Matrix4x4.TRS(new Vector3(Screen.width - 140 * GUIsF.x, 185 * GUIsF.y, 0), Quaternion.identity, GUIsF);
@@ -111,7 +113,7 @@ public class Controller : MonoBehaviour {
     // Update is called once per frame
     void Update ()
 	{
-		rb.mass = 1 + (float)(hydrogen/100);
+		rb.mass = 1 + (float)(hydrogen/500);
 		if (hydrogen > 0) {
 			allowMovement = true;
 		} else {
@@ -243,7 +245,7 @@ public class Controller : MonoBehaviour {
 	{
         if(hydrogen < maxH)
         {
-            hydrogen += .1;
+            hydrogen += drainRate;
             return true;
         }else
         {
@@ -252,7 +254,7 @@ public class Controller : MonoBehaviour {
 	}
     public void transfer()
     {
-        hydrogen -= .1;
+        hydrogen -= drainRate;
     }
     public double getHydrogen()
     {
@@ -264,10 +266,12 @@ public class Controller : MonoBehaviour {
     }
     public void calculateValues()
     {
-        regFuel = originalFuel - (upgrades[(int)IEnum.ShipUpgrades.effeciency] * .015f);
+        regFuel = originalFuel - (upgrades[(int)IEnum.ShipUpgrades.effeciency] * .00015f);
         boostFuel = originalBoost - ( upgrades[(int)IEnum.ShipUpgrades.effeciency] * .0015f);
         shipThrust =(originalThrust + ((float)Math.Pow(upgrades[(int)IEnum.ShipUpgrades.speed], 2) * 45));
         maxH = 100 + (Math.Pow(upgrades[(int)IEnum.ShipUpgrades.capacity], 2) * 50);
+        drainRate = maxH / 600;
+
         Debug.Log(boostFuel);
         Debug.Log(regFuel);
         Debug.Log(maxH);

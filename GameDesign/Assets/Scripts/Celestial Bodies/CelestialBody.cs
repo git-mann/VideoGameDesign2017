@@ -20,9 +20,17 @@ public class CelestialBody : MonoBehaviour {
 	}
     public bool reduceHydrogen()
     {
+        if (molH < 20 && this.tag == "Sun")
+        {
+            Debug.Log("Out");
+
+            MeshRenderer rend = transform.gameObject.GetComponent<MeshRenderer>();
+            rend.material = mats[7];
+        }
+
         if (molH >= 0)
         {
-            molH -= .1;
+            molH -= Controller.drainRate;
             //Debug.Log(molH);
             return true;
         }else

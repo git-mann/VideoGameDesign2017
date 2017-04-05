@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class station : MonoBehaviour {
-    public double molH = 0;
-    double maxH = 500;
+    public double molH = 1500;
+    double maxH = 1500;
     double loss = .05;
     public GameObject hanger, science;
 
@@ -45,7 +45,7 @@ public class station : MonoBehaviour {
 
     public void transfer()
     {
-        molH += (.1 - loss);
+        molH += (Controller.drainRate - loss);
     }
     public bool checkSpace()
     {
@@ -59,7 +59,7 @@ public class station : MonoBehaviour {
     }
     public void calculateValues()
     {
-        loss =.05 -( upgrades[(int)IEnum.StatUpgrades.loss] * (.05 / 4));
-        maxH = 500 + (Mathf.Pow(upgrades[(int)IEnum.StatUpgrades.maxH], 2f) * 500);
+        loss =(Controller.drainRate/2) - ( upgrades[(int)IEnum.StatUpgrades.loss] * (Controller.drainRate/ 4));
+        maxH = 1500 + (Mathf.Pow(upgrades[(int)IEnum.StatUpgrades.maxH], 2f) * 500);
     }
 }
