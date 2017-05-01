@@ -2,17 +2,132 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.Networking;
+using System.IO;
+/*
+ * Created by Kelby
+ * Controller Script for player object
+ * 
+ * ToDo:  ***************************************************************************************
+ * have fuel draining in place
+ * create event to be called to check fuel.
+ * use event when moving or inside coroutine instead of update
+ * 
+ * 
+ * Comment rest of code
+ * 
+ * Notes:******************************************************************************************
+ * Use as little code in the update as possible.
+ *  use if statements as little as possible in update. they are slower than switch and it runs every frame
+ * 
+ */
+public class Controller : NetworkBehaviour {
+    #region public variables
+    public double fuel, maxFuel = 100, drainRate;
+    public Sprite[] textures = new Sprite[4];
+    public float shipThrust;
+    [SyncVar]
+    public int sectorX = 0, sectorY = 0;
+    public SectorCenter sector;
 
-public class Controller : MonoBehaviour {
-	public double maxSpeed, hydrogen, fuelPerTime;
-     double maxH = 100;
-	public float  forceAmount, currentSpeed, thrust, turn, shipRotationSpeed, shipThrust, boostThrust = 1.5f;
+    #endregion
+    #region private variables
+    bool canMove = true;
+    int hor, vert;
+    private float thrust = 0, turn = 0, shipRotationSpeed = 150.0f;
+    Rigidbody2D rb;
+    Transform trans;
+    Camera cam;
+    SpriteRenderer rend;
+    SoundOscillator sound;
+    #endregion
+
+    private void Start()
+    {
+        //getting the camera component when we start
+        cam = gameObject.GetComponentInChildren<Camera>();
+        //getting the rigidbody2d and assigning it to rb
+         rb = gameObject.GetComponent<Rigidbody2D>();
+        //assigning the transform to trans
+        trans = transform;
+        gameObject.GetComponentInChildren<Skybox>().material.SetInt("_Formuparam", UnityEngine.Random.Range(450, 550));
+        rend = trans.GetChild(2).GetComponent<SpriteRenderer>();
+        sound = gameObject.GetComponent<SoundOscillator>();
+        drainRate = maxFuel / 400;
+    }
+    private void Update()
+    {
+        hor = (int)Input.GetAxis("Horizontal");
+        vert = (int)Input.GetAxis("Vertical");
+        if (!isLocalPlayer)
+        {
+            cam.enabled = false;
+            return;
+
+        }
+        if(hor != 0)
+        {
+            turn += hor * shipRotationSpeed * .001f * Time.deltaTime;
+
+        }else if(Mathf.Abs(turn) > .1f)
+        {
+            turn -= (turn / 50f);
+        }
+        else
+        {
+            turn = 0;
+        }
+     
+            
+            switch (vert)
+            {
+                case -1:
+                    rend.sprite = textures[1];
+                    break;
+                case 1:
+                    rend.sprite = textures[2];
+                    break;
+                case 0:
+                    rend.sprite = textures[0];
+                    break;
+
+            }
+            sound.frequency = Mathf.Lerp(this.GetComponent<SoundOscillator>().frequency, (100 + Mathf.Abs(vert)*100), 1.5f * Time.deltaTime);
+            thrust = vert * shipThrust;
+    }
+    private void FixedUpdate()
+    {
+        rb.AddForce(thrust * transform.forward * Time.deltaTime);
+        //add rotation using transform.rotation and apply drag in update
+        
+        trans.Rotate(new Vector3(0, turn, 0));   
+        
+    }
+    #region public functions
+    public void addHydrogen()
+    {
+        fuel += drainRate;
+       // Debug.Log(fuel);
+    }
+
+    #endregion
+    /*
+    public double maxSpeed;
+
+    public double hydrogen;
+    public double fuelPerTime;
+    double maxH = 100;
+    public float forceAmount, currentSpeed, thrust, turn, shipRotationSpeed, shipThrust, boostThrust = 1.5f;
 	public bool allowMovement;
 	public Rigidbody rb;
+    public GameObject sun;
+    public GameObject station;
+    public GameObject planet;
     public int[] upgrades ;
     public Sprite[] textures;
     public static double drainRate;
-    
+    public Camera cam;
+    NetworkIdentity iden;
     private float boostFuel, regFuel, sWidth, guiRatio, originalFuel, originalBoost, originalThrust;
     private bool full, high, mid, low, empty;
 
@@ -22,6 +137,7 @@ public class Controller : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        iden = gameObject.GetComponent<NetworkIdentity>();
         drainRate = .1;
         originalThrust = 90;
 		rb = transform.GetComponent<Rigidbody>();
@@ -31,6 +147,34 @@ public class Controller : MonoBehaviour {
         originalBoost = boostFuel = regFuel * boostThrust;
         calculateValues();
 	}
+    private string clientName()
+    {
+        StreamReader read = new StreamReader(Application.persistentDataPath + "/name.dat");
+        return read.ReadLine();
+    }
+   
+    public override void OnStartClient()
+    {
+        ClientScene.RegisterPrefab(planet);
+        ClientScene.RegisterPrefab(station);
+        ClientScene.RegisterPrefab(sun);
+        cam.gameObject.SetActive(true);
+        Skybox camera = gameObject.GetComponentInChildren<Skybox>();
+        GameObject.Find("pause").GetComponent<pause>().canvas.gameObject.SetActive(true);
+
+        GameObject.Find("Stats").GetComponent<GUIStats>().ship = this;
+        GameObject.Find("pause").GetComponent<menu>().ship = this;
+        GameObject.Find("pause").GetComponent<pause>().ship = this;
+
+        //this.name = clientName();
+
+    }
+
+    public override void OnStartAuthority()
+    {
+        
+
+    }
 
 
     //At this script initialization  
@@ -111,8 +255,20 @@ public class Controller : MonoBehaviour {
     }
 
     // Update is called once per frame
+    [Client]
     void Update ()
 	{
+        
+        if (!isLocalPlayer)
+        {
+            cam.enabled = false;
+            gameObject.GetComponentInChildren<AudioListener>().enabled = false;
+            Debug.Log("return");
+            Debug.Log(playerControllerId);
+            Debug.Log(netId);
+            return;
+        }
+            
 		rb.mass = 1 + (float)(hydrogen/500);
 		if (hydrogen > 0) {
 			allowMovement = true;
@@ -155,8 +311,7 @@ public class Controller : MonoBehaviour {
             }
 		
 
-			rb.AddForce(thrust * transform.forward * Time.deltaTime);
-			rb.AddRelativeTorque(transform.up * turn * Time.deltaTime);
+			
 		}
         #region sector switch
         if( transform.position.z <7000 && transform.position.z >-7000 &&transform.position.x >= 7000 )
@@ -276,4 +431,10 @@ public class Controller : MonoBehaviour {
         Debug.Log(regFuel);
         Debug.Log(maxH);
     }
+    private int randomIntFromSeed(int min, int max)
+    {
+        int number = UnityEngine.Random.Range(min, max);
+        return number;
+    }
+    */
 }

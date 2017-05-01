@@ -24,7 +24,9 @@ GameObject:
   - component: {fileID: 135587765962715900}
   - component: {fileID: 82032429726146982}
   - component: {fileID: 114098251881730466}
-  m_Layer: 0
+  - component: {fileID: 114278584292460640}
+  - component: {fileID: 114581018836898620}
+  m_Layer: 11
   m_Name: station
   m_TagString: Base
   m_Icon: {fileID: 0}
@@ -40,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4474356833289028}
   - component: {fileID: 212139923381044584}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: StationMinimap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +58,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4321429381041462}
   - component: {fileID: 212103110827689580}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +74,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4355621620083786}
   - component: {fileID: 212058965720656220}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GameObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,6 +233,38 @@ MonoBehaviour:
   volume: 0.1
   frequencies: []
   currentFrequency: 0
+--- !u!114 &114278584292460640
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1154809770713526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 188
+    i1: 70
+    i2: 10
+    i3: 251
+    i4: 137
+    i5: 25
+    i6: 12
+    i7: 20
+    i8: 138
+    i9: 8
+    i10: 219
+    i11: 150
+    i12: 231
+    i13: 210
+    i14: 44
+    i15: 84
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114446419273697318
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -247,6 +281,27 @@ MonoBehaviour:
   science: {fileID: 1592064176533258}
   upgrades: 
   upgradesUsed: 
+--- !u!114 &114581018836898620
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1154809770713526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!135 &135587765962715900
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -289,11 +344,16 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c15ccd42741fa7249ba0bc321032ff12, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
 --- !u!212 &212103110827689580
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -324,11 +384,16 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 73f5cd45c90ec8a42abb8b21259dcfc9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
 --- !u!212 &212139923381044584
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -359,11 +424,16 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8eaca12c543577c4aa2156b692b4ff40, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
 --- !u!212 &212463275157707738
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -394,8 +464,13 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8eaca12c543577c4aa2156b692b4ff40, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0

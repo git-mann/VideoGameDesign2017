@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public class GUIStats : MonoBehaviour {
-
+    /*
     public Text system, distance, station, hydrogen;
     SceneLoader sceneLoader;
     station stationScript;
-    Controller ship;
+    public Controller ship;
 	// Use this for initialization
 	void Start () {
         sceneLoader = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
@@ -26,7 +27,6 @@ public class GUIStats : MonoBehaviour {
         hydrogen.text = "(" + ship.hydrogen + ")";
 
     }
-
     private void OnGUI()
     {
         system.text = "System:\nBDMSC - " + sceneLoader.seed;
@@ -41,5 +41,5 @@ public class GUIStats : MonoBehaviour {
         }
         hydrogen.text = "(" + Mathf.Round((float)ship.hydrogen * 1) / 1 + ")";
     }
-
+    */
 }

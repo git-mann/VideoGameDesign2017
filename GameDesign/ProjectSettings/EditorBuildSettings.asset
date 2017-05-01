@@ -12,4 +12,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/RandomBasedOnSeed.unity
   - enabled: 0
+    path: Assets/Scenes/Networking.unity
+  - enabled: 0
     path: Assets/Scenes/Base.unity

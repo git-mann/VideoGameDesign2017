@@ -9,6 +9,7 @@ TagManager:
   - Base
   - Menu
   - Hanger Menu
+  - Center
   layers:
   - Default
   - TransparentFX
@@ -19,11 +20,11 @@ TagManager:
   - 
   - 
   - MiniMap
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ship
+  - Star
+  - Station
+  - Planet
+  - Sector
   - 
   - 
   - 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class menu : MonoBehaviour {
-    Vector2 scrollPosition = Vector2.zero;
+    /*
     int numSel;
     public GUIStyle background;
     string[] upgrades;
@@ -18,7 +18,7 @@ public class menu : MonoBehaviour {
     Texture2D texTemp;
 
     station Stat;
-    Controller ship;
+    public Controller ship;
     public static bool activated = false;
     bool subMenu;
 	// Use this for initialization
@@ -265,7 +265,7 @@ public class menu : MonoBehaviour {
             setShipUpgradeColor(index, level - 1);
         }
     }
-
+    */
 }
 [System.Serializable]
 public class ArrayStatUpgrade{

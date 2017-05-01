@@ -1,12 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
 public class star : CelestialBody {
+    [SyncVar]
+    Vector3 size;
     MeshRenderer rend;
     public Transform ParticleSystemObject;
     public double startingMolH;
-	public override void Start ()
+
+    public SectorCenter sector;
+
+    private void Awake()
+    {
+        loadData.data.onSunSizedChanged.AddListener(assignSize);
+        loadData.data.onSunSizedChanged.AddListener(doScale);
+    }
+    public override void Start ()
 	{
+        
+        
         base.Start();
 		if (temperature < 30.5) {
 			starClass = 1;	
@@ -23,8 +36,9 @@ public class star : CelestialBody {
 		} else if (temperature >= 56.5 && temperature < 60) { 
 			starClass = 7;
 		}
+        loadData.data.onSunSizedChanged.Invoke();
 
-		percentH = 0.9;
+        percentH = 0.9;
 		molH = percentH * transform.localScale.x * starClass * 10;
         startingMolH = molH;
        
@@ -37,7 +51,8 @@ public class star : CelestialBody {
 
         ParticleSystemObject = this.transform.GetChild(0);
     }
-    public new  bool reduceHydrogen()
+
+    public bool reduceHydrogen(double drainRate)
     {
         if(molH < 20)
         {
@@ -46,7 +61,32 @@ public class star : CelestialBody {
             rend = transform.gameObject.GetComponent<MeshRenderer>();
             rend.material = mats[7];
         }
-        Debug.Log(molH);
-        return base.reduceHydrogen();
+       // Debug.Log(molH);
+        if (molH >= 0)
+        {
+            molH -= drainRate;
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+      
+    }
+
+    [Server]
+    void assignSize()
+    {
+        size = gameObject.transform.localScale;
+    }
+    void doScale()
+    {
+        gameObject.transform.localScale = size;
+    }
+    public override void OnStartClient()
+    {
+
+        loadData.data.onSunSizedChanged.Invoke();
     }
 }

@@ -38,6 +38,7 @@ public class station : MonoBehaviour {
     {
         so.gain = 0.005f;
     }
+    /*
     void unbeep()
     {
         so.gain = 0f;
@@ -62,4 +63,5 @@ public class station : MonoBehaviour {
         loss =(Controller.drainRate/2) - ( upgrades[(int)IEnum.StatUpgrades.loss] * (Controller.drainRate/ 4));
         maxH = 1500 + (Mathf.Pow(upgrades[(int)IEnum.StatUpgrades.maxH], 2f) * 500);
     }
+    */
 }
