@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4000013172715226}
   - component: {fileID: 212000014282116938}
-  - component: {fileID: 136410423036442466}
-  - component: {fileID: 136358866969370858}
-  m_Layer: 0
+  - component: {fileID: 70162749973808256}
+  - component: {fileID: 70806043522572054}
+  m_Layer: 9
   m_Name: ShipSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 92000012819884920}
   - component: {fileID: 81000014272957926}
   - component: {fileID: 45000010017433930}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -57,9 +57,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4000013923405578}
-  - component: {fileID: 54000013249436406}
   - component: {fileID: 114000010429018642}
-  - component: {fileID: 65948848006113826}
   - component: {fileID: 114580267758036948}
   - component: {fileID: 114952740722133706}
   - component: {fileID: 82272874198566304}
@@ -67,7 +65,8 @@ GameObject:
   - component: {fileID: 114045995886963582}
   - component: {fileID: 114030449710477934}
   - component: {fileID: 114703477629740360}
-  m_Layer: 0
+  - component: {fileID: 50792557397667640}
+  m_Layer: 9
   m_Name: Ship
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -83,7 +82,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000011461457144}
   - component: {fileID: 212000011201914588}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: ShipMiniMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,8 +134,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012183619648}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 235, y: 450, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 250, y: 0, z: 500}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000013441197574}
@@ -144,7 +143,7 @@ Transform:
   - {fileID: 4000013172715226}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!20 &20000010969416968
 Camera:
   m_ObjectHideFlags: 1
@@ -175,6 +174,8 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
+  m_AllowMSAA: 1
+  m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
@@ -187,33 +188,56 @@ Skybox:
   m_GameObject: {fileID: 1000012172745050}
   m_Enabled: 1
   m_CustomSkybox: {fileID: 2100000, guid: 17bd944164a355f4bb54209420aaefbd, type: 2}
---- !u!54 &54000013249436406
-Rigidbody:
+--- !u!50 &50792557397667640
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012183619648}
-  serializedVersion: 2
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
   m_Mass: 1
-  m_Drag: 0.2
-  m_AngularDrag: 0.57
-  m_UseGravity: 0
-  m_IsKinematic: 0
+  m_LinearDrag: 0.05
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_Constraints: 0
+  m_SleepingMode: 1
   m_CollisionDetection: 0
---- !u!65 &65948848006113826
-BoxCollider:
+  m_Constraints: 4
+--- !u!70 &70162749973808256
+CapsuleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012183619648}
+  m_GameObject: {fileID: 1000010979837686}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 2.2737368e-13}
+  m_Size: {x: 0.32000002, y: 0.32000017}
+  m_Direction: 0
+--- !u!70 &70806043522572054
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010979837686}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 2.2737368e-13}
+  m_Size: {x: 0.32000002, y: 0.32000017}
+  m_Direction: 1
 --- !u!81 &81000014272957926
 AudioListener:
   m_ObjectHideFlags: 1
@@ -320,24 +344,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2baa2c788c7f548ae50ed1e231b6fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 90
-  hydrogen: 0
-  fuelPerTime: 0
-  forceAmount: 0
-  currentSpeed: 0
-  thrust: 0
-  turn: 0
-  shipRotationSpeed: 300
-  shipThrust: 90
-  boostThrust: 15
-  allowMovement: 0
-  rb: {fileID: 0}
-  upgrades: 
+  fuel: 0
+  maxFuel: 100
+  drainRate: 0
   textures:
-  - {fileID: 21300000, guid: 556f35d5c9fde2f4a907f34c1f56c075, type: 3}
-  - {fileID: 21300000, guid: d773342e724309c46ad44295d9c6f8c5, type: 3}
+  - {fileID: 21300000, guid: 9ce6b0a77eb42c24a97992ad8fb6514c, type: 3}
   - {fileID: 21300000, guid: dde45bd61b5944942b148a2a9b832c70, type: 3}
-  guiSkin: {fileID: 11400000, guid: 3fd07bda7b705ca4e8ebbc2bee2361a0, type: 2}
+  - {fileID: 21300000, guid: d773342e724309c46ad44295d9c6f8c5, type: 3}
+  shipThrust: 9000
+  sectorX: 0
+  sectorY: 0
+  sector: {fileID: 0}
 --- !u!114 &114030449710477934
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -381,14 +398,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7907f5fb17ba3f34c98c99bbc44b117b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guiSkin: {fileID: 11400000, guid: d63bf52e9140a954c84a99ea319a8d4c, type: 2}
-  planets: []
-  star: {fileID: 0}
-  station: {fileID: 0}
-  cameraPrefab: {fileID: 1307317079967160, guid: f1514ad33f9043e459ced057b74b839f,
-    type: 2}
-  cameraPrefabStar: {fileID: 1832516162370764, guid: 63b7787fef937aa4db4d7e9851c76d37,
-    type: 2}
 --- !u!114 &114580267758036948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -400,9 +409,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 184fa47b8f8c3a84e8b3cf779a45575a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ship: {fileID: 1000012183619648}
-  thing: {fileID: 0}
-  rotationSpeed: 1
 --- !u!114 &114703477629740360
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -414,12 +420,13 @@ MonoBehaviour:
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 3
+  m_TransformSyncMode: 2
   m_SendInterval: 0.1
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
-  m_MovementTheshold: 0.001
+  m_MovementTheshold: 0.01
+  m_VelocityThreshold: 0.0001
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
@@ -446,32 +453,6 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012172745050}
   m_Enabled: 1
---- !u!136 &136358866969370858
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010979837686}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1.0000002
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0.0000076293945}
---- !u!136 &136410423036442466
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010979837686}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.15
-  m_Height: 0.15
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0.0000076293945}
 --- !u!164 &164365300180630772
 AudioReverbFilter:
   m_ObjectHideFlags: 1
@@ -482,7 +463,6 @@ AudioReverbFilter:
   m_DryLevel: 0
   m_Room: -1000
   m_RoomHF: -151
-  m_RoomRolloff: 0
   m_DecayTime: 7.56
   m_DecayHFRatio: 0.91
   m_ReflectionsLevel: -626
@@ -525,11 +505,16 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9ce6b0a77eb42c24a97992ad8fb6514c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
 --- !u!212 &212000014282116938
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -560,8 +545,13 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 556f35d5c9fde2f4a907f34c1f56c075, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0

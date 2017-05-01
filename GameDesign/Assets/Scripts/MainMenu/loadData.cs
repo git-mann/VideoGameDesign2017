@@ -4,9 +4,30 @@ using UnityEngine;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using UnityEngine.Networking;
+using UnityEngine.Events;
+
+
+
 
 
 public class loadData : MonoBehaviour {
+    public UnityEvent onSunSizedChanged;
+    public static loadData data;
+    private void Awake()
+    {
+        if (data == null)
+        {
+            data = this;
+            DontDestroyOnLoad(this);
+            Debug.Log("hello");
+        }else
+        {
+            Destroy(this);
+        }
+    }
+
+    /*
     public static loadData data;
     public string sceneName = "";
     public int secX, secZ;
@@ -34,10 +55,12 @@ public class loadData : MonoBehaviour {
             Destroy(gameObject);
         }
     }
+    
     private void OnApplicationQuit()
     {
         this.Save();
     }
+    
     private void Start()
     {
         this.initialize();
@@ -210,10 +233,13 @@ public class loadData : MonoBehaviour {
     {
         this.saveResume();
         this.saveSectorWithoutDestory();
-        this.saveShip();
         this.saveScene();
     }
-  
+  public void saveClient(string name)
+    {
+        Debug.Log(name);
+        
+    }
     #endregion
 
 
@@ -396,7 +422,9 @@ public class loadData : MonoBehaviour {
         }
     } 
     #endregion
+    */
 }
+/*
 [Serializable]
 class SaveSector
 {
@@ -423,6 +451,7 @@ class Base
         this.molH = stat.molH;
     }
 }
+
 [Serializable]
 class Scene
 {
@@ -462,3 +491,4 @@ public class upgrade
     }
 
 }
+*/

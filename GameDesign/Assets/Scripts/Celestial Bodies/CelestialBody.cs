@@ -1,23 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class CelestialBody : MonoBehaviour {
-
+public class CelestialBody : NetworkBehaviour {
+    
 	public GameObject star;
 	public int orbitSpeed, temperature, starClass;
-	public double percentH, molH;
+    public double percentH;
+    [SyncVar]
+    public double molH;
 	public Material[] mats;
-    public Transform ship;
 
 	public virtual void Start ()
 	{
-        ship = GameObject.FindGameObjectWithTag("Player").transform;
+       
 	}
 
-	public virtual void Update ()
-	{
-
-	}
+    public virtual void Update()
+    {
+    }
     public bool reduceHydrogen()
     {
         if (molH < 20 && this.tag == "Sun")
@@ -30,12 +31,12 @@ public class CelestialBody : MonoBehaviour {
 
         if (molH >= 0)
         {
-            molH -= Controller.drainRate;
-            //Debug.Log(molH);
+
             return true;
         }else
         {
             return false;
         }
     }
+    
 }

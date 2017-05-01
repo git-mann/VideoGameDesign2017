@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NearestObject : MonoBehaviour {
-
+    /*
     public GUISkin guiSkin;
     public GameObject[] planets;
     public GameObject star, station, cameraPrefab, cameraPrefabStar;
@@ -169,4 +169,5 @@ public class NearestObject : MonoBehaviour {
         }
         return onScreen;
     }
+    */
 }

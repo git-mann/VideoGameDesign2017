@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 
 public class Switcher : MonoBehaviour {
+    /*
     public GameObject content;
     bool popSaves;
     bool settings;
     string[] hello;
     public GameObject con;
+  //  public GameObject name;
     int numSel = -1;
+    public  Manager manager;
     Vector2 scrollPosition = Vector2.zero;
     public float masterVolume = -30f;
     public float musicVolume = -30f;
@@ -26,12 +30,12 @@ public class Switcher : MonoBehaviour {
     public void resumeScene()
     {
         loadData.data.sceneName = "resume";
-        SceneManager.LoadScene("GUIRandom");
+        manager.StartHost();
     }
     public void newScene()
     {
         loadData.data.sceneName = "new";
-        SceneManager.LoadScene("GUIRandom");
+        manager.StartHost() ;
     }
     public void openSettings()
     {
@@ -126,7 +130,7 @@ public class Switcher : MonoBehaviour {
         {
             Debug.Log(numSel);
             loadData.data.sceneName = hello[numSel];
-            SceneManager.LoadScene("GUIRandom");
+            manager.StartHost();
         }
         Debug.Log(numSel);
     }
@@ -144,5 +148,5 @@ public class Switcher : MonoBehaviour {
         hello = temp.ToArray();
     }
 
-
+    */
 }

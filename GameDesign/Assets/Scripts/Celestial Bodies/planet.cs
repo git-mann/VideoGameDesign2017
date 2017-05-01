@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class planet : CelestialBody {
+    public SectorCenter sector;
+    /*
 	public override void Start ()
 	{
         star = loadData.data.sun;
@@ -23,4 +25,5 @@ public class planet : CelestialBody {
         print(molH * percentH);
         return molH * percentH;
     }
+    */
 }

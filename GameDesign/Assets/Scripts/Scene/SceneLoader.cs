@@ -3,36 +3,107 @@ using System.Collections;
 using UnityEngine.Networking;
 
 public class SceneLoader : NetworkBehaviour {
+    const int primeNumX = 23173;
+    const int primeNumY = 17321;
+    const int primeNumModulus = 19309;
+    public static SceneLoader scene;
 
+    [Server]
+    private void Awake()
+    {
+        scene = this;
+
+        GameObject sun = GameObject.Instantiate((GameObject)Resources.Load("Prefabs/Star"));
+        sun.GetComponent<star>().temperature = 25;
+        sun.transform.localScale = new Vector3(250, 250,1);
+        NetworkServer.Spawn(sun);
+        
+        
+
+    }
+    public void Generate(SectorCenter center)
+    {
+        switch (center.id)
+        {
+            case 5:
+
+                    break;
+            default:
+                getRandomSeed(center.sectorX, center.sectorY);
+                break;
+        }
+        
+    }
+    //this is a way to get the same number every time based upon the seed
+    //http://preshing.com/20121224/how-to-generate-a-sequence-of-unique-random-integers/
+    int getRandomSeed(int x, int y)
+    {
+        int Return = ((primeNumX - x) * (primeNumY - y))%primeNumModulus;
+        //Debug.Log(Return);
+        return Return;
+    }
+    public override void OnStartServer()
+    {
+        
+    }
+    /*
 	public int distanceFromSol, seed;
 	public string nameOfSystem;
 	public GameObject planet, star, hydrogen, station;
     public Material psMaterial;
 
+    //array of classes which has x-Coord and z-Coord each sector is at
+    sector[] places = new sector[9];
+    public override void OnStartServer()
+    {
+        firstLoad();
+        Debug.Log("start");
+    }
 
-
-    // Use this for initialization
-    void Start () {
+    private void Awake()
+    {
+        if (isServer) {
+            firstLoad();
+            Debug.Log("Load god damnit");
+        }
+        else
+        {
+            Debug.Log("I do not want to cooperate");
+        }
         
-        if (loadData.data.sceneName.Equals("new")){
+    }
+    
+    [Server]
+    void firstLoad()
+    {
+        if (loadData.data.sceneName.Equals("new"))
+        {
             loadData.data.sceneName = System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
             loadData.data.secX = 0;
             loadData.data.secZ = 0;
             loadBase();
             loadData.data.setSun();
-        }else if(loadData.data.sceneName.Equals("resume"))
+        }
+        else if (loadData.data.sceneName.Equals("resume"))
         {
-            if(!loadData.data.loadResume())
+            if (!loadData.data.loadResume())
             {
                 loadData.data.sceneName = System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
                 loadData.data.secX = 0;
                 loadData.data.secZ = 0;
                 loadBase();
             }
-        }else
+        }
+        else
         {
             loadData.data.loadSceneName();
         }
+    }
+    // Use this for initialization
+    void start()
+    {
+        
+       
 	}
 	
 	// Update is called once per frame
@@ -114,10 +185,6 @@ public class SceneLoader : NetworkBehaviour {
         spawnedSun.name = "Star";
         spawnedSun.tag = "Sun";
         spawnedSun.GetComponent<star>().temperature = temperature;
-        spawnedSun.AddComponent<SphereCollider>();
-        spawnedSun.GetComponent<SphereCollider>().isTrigger = true;
-        //resizing collider
-        spawnedSun.GetComponent<SphereCollider>().radius = 1.25f;
         GameObject spawnedSunPS = spawnedSun.transform.GetChild(0).gameObject;
         spawnedSunPS.transform.localScale = new Vector3(spawnedSun.transform.localScale.x, spawnedSun.transform.localScale.y, 1);
         spawnedSunPS.AddComponent<ParticleSystem>();
@@ -143,9 +210,7 @@ public class SceneLoader : NetworkBehaviour {
         psCollision.bounce = 0f;
         psCollision.enableInteriorCollisions = false;
         psCollision.lifetimeLoss = 1f;
-        
-        GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
-        camera.GetComponent<Skybox>().material.SetInt("_Formuparam", randomIntFromSeed(450, 550));
+
         loadData.data.sun = spawnedSun;
         NetworkServer.Spawn(spawnedSun);
     }
@@ -164,5 +229,6 @@ public class SceneLoader : NetworkBehaviour {
         int seed = (int)Random.Range(0f, 10000000000f);
         loadScene(seed);
     }
-
+    */
 }
+

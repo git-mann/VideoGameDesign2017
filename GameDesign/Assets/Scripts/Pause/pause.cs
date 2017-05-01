@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public class pause : MonoBehaviour {
+    /*
     public GameObject menu, pauseMenu, settingsMenu;
     public Slider masterSlider, musicSlider, soundsSlider;
     public AudioMixer mixer;
     public AudioClip buttonOver;
     public AudioClip buttonPress;
+    public Canvas canvas;
     AudioSource audioSource;
-
+    public Controller ship;
     private bool setting;
     private float masterVolume, musicVolume, soundsVolume;
 
@@ -24,7 +27,7 @@ public class pause : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            
+           
             menu.SetActive(true);
             pauseMenu.SetActive(true);
             Time.timeScale = .001f;
@@ -39,6 +42,8 @@ public class pause : MonoBehaviour {
     public void saveExit()
     {
         loadData.data.Save();
+        Debug.Log(ship);
+        loadData.data.saveClient(ship.name);
         Application.Quit();
     }
     public void Resume()
@@ -90,4 +95,5 @@ public class pause : MonoBehaviour {
     {
         mixer.SetFloat("SoundsVolume", value);
     }
+    */
 }

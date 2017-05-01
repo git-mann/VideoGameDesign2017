@@ -10,55 +10,27 @@ Material:
   m_Shader: {fileID: 4800000, guid: 100c9f6ec37b01644b7a5f7feac179d6, type: 3}
   m_ShaderKeywords: CLAMPOUT
   m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
+  disabledShaderPasses: []
   m_SavedProperties:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - first:
-        name: _Brightness
-      second: 0.62
-    - first:
-        name: _CLAMPOUT
-      second: 1
-    - first:
-        name: _CamScroll
-      second: 0.1
-    - first:
-        name: _Darkmatter
-      second: 0
-    - first:
-        name: _Distfading
-      second: 62.3
-    - first:
-        name: _Formuparam
-      second: 534
-    - first:
-        name: _Iterations
-      second: 12
-    - first:
-        name: _Saturation
-      second: 77
-    - first:
-        name: _StepSize
-      second: 253.8
-    - first:
-        name: _Tile
-      second: 708.9
-    - first:
-        name: _Volsteps
-      second: 5.03
+    - _Brightness: 0.62
+    - _CLAMPOUT: 1
+    - _CamScroll: 0.1
+    - _Darkmatter: 0
+    - _Distfading: 62.3
+    - _Formuparam: 534
+    - _Iterations: 12
+    - _Saturation: 77
+    - _StepSize: 253.8
+    - _Tile: 708.9
+    - _Volsteps: 5.03
     m_Colors:
-    - first:
-        name: _Center
-      second: {r: 1, g: 0.3, b: 0.5, a: 0}
-    - first:
-        name: _Color
-      second: {r: 0.52205884, g: 0.52205884, b: 0.52205884, a: 1}
-    - first:
-        name: _Rotation
-      second: {r: 0, g: 0, b: 0, a: 0.001}
-    - first:
-        name: _Scroll
-      second: {r: 0.1, g: 0.1, b: -0.3, a: 0}
+    - _Center: {r: 1, g: 0.3, b: 0.5, a: 0}
+    - _Color: {r: 0.52205884, g: 0.52205884, b: 0.52205884, a: 1}
+    - _Rotation: {r: 0, g: 0, b: 0, a: 0.001}
+    - _Scroll: {r: 0.1, g: 0.1, b: -0.3, a: 0}
