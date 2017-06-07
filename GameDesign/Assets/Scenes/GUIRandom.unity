@@ -7998,6 +7998,12 @@ Prefab:
       propertyPath: hangerGui
       value: 
       objectReference: {fileID: 1982073689}
+    - target: {fileID: 114000012138298028, guid: 6ab572672a9191e4ca0939164b4a98e0,
+        type: 2}
+      propertyPath: Sun
+      value: 
+      objectReference: {fileID: 1000011563531616, guid: cc5cac4755234304e9f9ed8348e93fbb,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6ab572672a9191e4ca0939164b4a98e0, type: 2}
   m_IsPrefabParent: 0

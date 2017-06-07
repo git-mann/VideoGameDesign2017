@@ -17,10 +17,11 @@ public class SceneLoader : NetworkBehaviour {
         sun.GetComponent<star>().temperature = 25;
         sun.transform.localScale = new Vector3(250, 250,1);
         NetworkServer.Spawn(sun);
-        
+        GameObject station = GameObject.Instantiate((GameObject)Resources.Load("Prefabs/"));
         
 
     }
+    [Server]
     public void Generate(SectorCenter center)
     {
         switch (center.id)
@@ -29,7 +30,8 @@ public class SceneLoader : NetworkBehaviour {
 
                     break;
             default:
-                getRandomSeed(center.sectorX, center.sectorY);
+                Debug.Log(center.id);
+                createSystem(getRandomSeed(center.sectorX, center.sectorY),(int) center.transform.position.x, (int)center.transform.position.y, center);
                 break;
         }
         
@@ -40,8 +42,26 @@ public class SceneLoader : NetworkBehaviour {
     {
         int Return = ((primeNumX - x) * (primeNumY - y))%primeNumModulus;
         //Debug.Log(Return);
-        return Return;
+        return Return % loadData.data.saveId;
     }
+    void createSystem(int seed, int posX, int posY, SectorCenter sector)
+    {
+        if (sector.Sun != null)
+        {
+            NetworkServer.Destroy(sector.Sun.gameObject);
+        }
+        //Debug.Log(seed);
+        GameObject sun = GameObject.Instantiate((GameObject)Resources.Load("Prefabs/Star"));
+        sun.transform.position = new Vector3(posX, posY, 0);
+        star spawnS = sun.GetComponent<star>();
+        Random.InitState(seed);
+        spawnS.temperature = (int)Random.Range(1f, 60f);
+        float size = Random.Range(100, 1000);
+        sun.transform.localScale = new Vector3(size, size, 1);
+        NetworkServer.Spawn(sun);
+        //Debug.Log("spawn");
+    }
+
     public override void OnStartServer()
     {
         

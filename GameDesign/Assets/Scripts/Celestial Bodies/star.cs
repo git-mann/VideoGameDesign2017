@@ -21,6 +21,7 @@ public class star : CelestialBody {
         
         
         base.Start();
+      //  Debug.Log("Temperature is: " + temperature);
 		if (temperature < 30.5) {
 			starClass = 1;	
 		} else if (temperature >= 30.5 && temperature < 50) { 
@@ -47,8 +48,8 @@ public class star : CelestialBody {
 		light.range = starClass * 1000;
 		light.intensity = starClass;
 		rend = transform.gameObject.GetComponent<MeshRenderer>();
+       // Debug.Log(starClass);
         rend.material = mats[starClass - 1];
-
         ParticleSystemObject = this.transform.GetChild(0);
     }
 
@@ -88,5 +89,8 @@ public class star : CelestialBody {
     {
 
         loadData.data.onSunSizedChanged.Invoke();
+    }
+    ~star(){
+        Debug.Log("I am Dieing!!!!");
     }
 }

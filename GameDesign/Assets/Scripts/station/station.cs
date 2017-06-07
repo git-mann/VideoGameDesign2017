@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class station : MonoBehaviour {
+public class station : NetworkBehaviour {
     public double molH = 1500;
     double maxH = 1500;
     double loss = .05;
     public GameObject hanger, science;
+
+    [SyncVar]
+    public int slots;
 
     public int[] upgrades ;
 
@@ -38,12 +42,12 @@ public class station : MonoBehaviour {
     {
         so.gain = 0.005f;
     }
-    /*
+    
     void unbeep()
     {
         so.gain = 0f;
     }
-
+    /*
     public void transfer()
     {
         molH += (Controller.drainRate - loss);

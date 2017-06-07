@@ -14,6 +14,7 @@ using UnityEngine.Events;
 public class loadData : MonoBehaviour {
     public UnityEvent onSunSizedChanged;
     public static loadData data;
+    public int saveId;
     private void Awake()
     {
         if (data == null)
@@ -25,6 +26,8 @@ public class loadData : MonoBehaviour {
         {
             Destroy(this);
         }
+        saveId = "hello".GetHashCode();
+        Debug.Log(saveId);
     }
 
     /*

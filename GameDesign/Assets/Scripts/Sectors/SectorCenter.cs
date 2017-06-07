@@ -26,14 +26,13 @@ public class SectorCenter : NetworkBehaviour {
     public int sectorX, sectorY;
     #endregion
     #region private variables
-    star Sun;
-    List<planet> Planets = new List<planet>();
+    public star Sun;
+    public List<planet> Planets = new List<planet>();
    // [SyncVar]
     SyncListSector sector = new SyncListSector();
     #endregion
     public void Awake()
     {
-        SceneLoader.scene.Generate(this);
     }
     public override void OnStartServer()
     {
@@ -42,34 +41,43 @@ public class SectorCenter : NetworkBehaviour {
         {
             sector.Add(temp[i]);
         }
+        SceneLoader.scene.Generate(this);
+
     }
     [Server]
     //the sector will have a collider attached to tell the planets and stars they are in this sector
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        switch (collision.tag)
+        if (collision.isTrigger)
         {
-            case "Sun":
-                Sun = collision.gameObject.GetComponent<star>();
-                Sun.sector = this;
-                break;
-            case "Planet":
-                Planets.Add(collision.gameObject.GetComponent<planet>());
-                collision.gameObject.GetComponent<planet>().sector = this;
-                break;
-            case "Player":
-                collision.gameObject.GetComponentInParent<Controller>().sector = this;
-                break;
+            switch (collision.tag)
+            {
+                case "Sun":
+                    Sun = collision.gameObject.GetComponent<star>();
+                    Sun.sector = this;
+                    break;
+                case "Planet":
+                    Planets.Add(collision.gameObject.GetComponent<planet>());
+                    collision.gameObject.GetComponent<planet>().sector = this;
+                    break;
+                case "Player":
+                    Debug.Log("enter");
+                    collision.gameObject.GetComponentInParent<Controller>().sector = this;
+                    SceneLoader.scene.Generate(this);
+
+                    break;
+            }
         }
     }
     [Server]
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.isTrigger)
+        if (collision.isTrigger )
         {
             Debug.Log("Exit Sector " +this.id);
             Controller control = collision.gameObject.GetComponentInParent<Controller>();
             CmdSwitchSector(control.GetComponent<NetworkIdentity>());
+            
         }
 
     }
@@ -146,7 +154,6 @@ public class SectorCenter : NetworkBehaviour {
             
         }
         Vector3 pos = sectorSwitch(control);
-        SceneLoader.scene.Generate(this);
         RpcUpdate(control.netId, pos);
         
     }

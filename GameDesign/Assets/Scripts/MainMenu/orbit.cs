@@ -13,5 +13,9 @@ public class orbit : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         transform.RotateAround(sun.transform.position, Vector3.up, distance * Time.deltaTime);
+        if (gameObject.tag.Equals("MainCamera"))
+        {
+            transform.RotateAround(sun.transform.position, Vector3.right, distance * Time.deltaTime);
+        }
 	}
 }

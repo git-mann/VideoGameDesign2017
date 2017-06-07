@@ -21,11 +21,11 @@ GameObject:
   - component: {fileID: 4385891917973436}
   - component: {fileID: 212463275157707738}
   - component: {fileID: 114446419273697318}
-  - component: {fileID: 135587765962715900}
   - component: {fileID: 82032429726146982}
   - component: {fileID: 114098251881730466}
   - component: {fileID: 114278584292460640}
   - component: {fileID: 114581018836898620}
+  - component: {fileID: 58096576848815640}
   m_Layer: 11
   m_Name: station
   m_TagString: Base
@@ -136,6 +136,21 @@ Transform:
   m_Father: {fileID: 4385891917973436}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &58096576848815640
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1154809770713526}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1
 --- !u!82 &82032429726146982
 AudioSource:
   m_ObjectHideFlags: 1
@@ -279,6 +294,7 @@ MonoBehaviour:
   molH: 1500
   hanger: {fileID: 1469594137112498}
   science: {fileID: 1592064176533258}
+  slots: 0
   upgrades: 
   upgradesUsed: 
 --- !u!114 &114581018836898620
@@ -302,18 +318,6 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
---- !u!135 &135587765962715900
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1154809770713526}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &212058965720656220
 SpriteRenderer:
   m_ObjectHideFlags: 1

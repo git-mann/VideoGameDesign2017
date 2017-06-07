@@ -12,7 +12,7 @@ public class SunLevelIndicator : MonoBehaviour {
 	void Start () {
         image = GetComponent<Image>();
 	}
-	
+	/*
 	// Update is called once per frame
 	void Update () {
         if (sun)
@@ -26,4 +26,5 @@ public class SunLevelIndicator : MonoBehaviour {
             image.fillAmount = 1;
         }
 	}
+    */
 }
